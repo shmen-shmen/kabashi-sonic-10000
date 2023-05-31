@@ -1,7 +1,18 @@
 import React from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { changeFilter } from "../features/sliders/slidersSlice";
 
-export default function Filter({ change, settings, detuneRelease }) {
-	const { frequency, detune, Q, gain, types, type } = settings;
+export default function Filter() {
+	const { filterSettings } = useSelector((state) => state.sliders);
+	const { frequency, detune, Q, gain, types, type } = filterSettings;
+
+	const dispatch = useDispatch();
+
+	const filterHandler = (e) => {
+		const { id, value } = e.target;
+		dispatch(changeFilter({ id, value }));
+	};
+
 	return (
 		<div className="controls">
 			<h2>{type + " Filter"}</h2>
@@ -13,7 +24,7 @@ export default function Filter({ change, settings, detuneRelease }) {
 				id="frequency"
 				min="10"
 				max="10000"
-				onChange={change}
+				onChange={filterHandler}
 			/>
 			<label htmlFor="detune">{"detune: " + detune}</label>
 			<input
@@ -23,8 +34,7 @@ export default function Filter({ change, settings, detuneRelease }) {
 				id="detune"
 				min="0.0001"
 				max="100"
-				onChange={change}
-				onMouseUp={detuneRelease}
+				onChange={filterHandler}
 			/>
 			<label htmlFor="Q">{"Q: " + Q}</label>
 			<input
@@ -34,8 +44,8 @@ export default function Filter({ change, settings, detuneRelease }) {
 				id="Q"
 				step="0.1"
 				max="10"
-				min="0.0001"
-				onChange={change}
+				// min="0.0001"
+				onChange={filterHandler}
 			/>
 			<label htmlFor="gain">{"gain: " + gain}</label>
 			<input
@@ -43,13 +53,13 @@ export default function Filter({ change, settings, detuneRelease }) {
 				name="gain"
 				value={gain}
 				id="gain"
-				min="1"
+				// min="1"
 				step="0.1"
 				max="10"
-				onChange={change}
+				onChange={filterHandler}
 			/>
 			<label htmlFor="type">type</label>
-			<select name="type" id="type" onChange={change}>
+			<select name="type" id="type" onChange={filterHandler}>
 				{types.map((type) => {
 					return (
 						<option value={type} key={type + "-key"}>
