@@ -1,28 +1,31 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { useEffect } from "react";
+import Osc from "../../app/Osc";
 
 let actx = new AudioContext();
 let out = actx.destination;
 
-let osc1 = actx.createOscillator();
 let gain1 = actx.createGain();
 gain1.gain.value = 0.5;
 let filter = actx.createBiquadFilter();
-let masterGain = actx.createGain();
-masterGain.gain.value = 0.5;
 
-osc1.connect(gain1);
 gain1.connect(filter);
-filter.connect(masterGain);
-masterGain.connect(out);
+filter.connect(out);
+
+let nodes = {};
 
 const initialState = {
 	osc1Settings: {
-		frequency: osc1.frequency.value,
-		detune: osc1.detune.value,
-		volume: gain1.gain.value * 1000,
+		detune: 0,
 		types: ["sine", "square", "sawtooth", "triangle"],
-		type: osc1.type,
+		type: "sine",
+	},
+
+	envelope: {
+		attack: 0.005,
+		decay: 0.1,
+		sustain: 0.6,
+		release: 0.1,
 	},
 
 	isMute: false,
@@ -50,41 +53,24 @@ export const slidersSlice = createSlice({
 	name: "sliders",
 	initialState,
 	reducers: {
-		startOsc1: (state) => {
-			osc1.start();
-			return state;
-		},
 		changeOsc1: (state, action) => {
 			const { id, value } = action.payload;
 			state.osc1Settings = { ...state.osc1Settings, [id]: value };
-			switch (id) {
-				case "volume":
-					gain1.gain.exponentialRampToValueAtTime(
-						value / 1000,
-						actx.currentTime + 0.05
-					);
-					break;
-				case "type":
-					osc1.type = value;
-					break;
-				default:
-					osc1[id].linearRampToValueAtTime(value, actx.currentTime + 0.05);
-					break;
-			}
 		},
 		muteSwitch: (state) => {
 			state.isMute = !state.isMute;
-			if (masterGain.gain.value === 0.5) {
-				masterGain.gain.exponentialRampToValueAtTime(
+			if (gain1.gain.value === 0.5) {
+				gain1.gain.exponentialRampToValueAtTime(
 					0.0001,
 					actx.currentTime + 0.05
 				);
 			} else {
-				masterGain.gain.exponentialRampToValueAtTime(
-					0.5,
-					actx.currentTime + 0.05
-				);
+				gain1.gain.exponentialRampToValueAtTime(0.5, actx.currentTime + 0.05);
 			}
+		},
+		changeEnvelope: (state, action) => {
+			const { id, value } = action.payload;
+			state.envelope = { ...state.envelope, [id]: parseFloat(value, 1000) };
 		},
 		changeFilter: (state, action) => {
 			const { id, value } = action.payload;
@@ -109,13 +95,40 @@ export const slidersSlice = createSlice({
 		},
 		detuneToZero: (state) => {
 			state.osc1Settings = { ...state.osc1Settings, detune: 0 };
-			osc1.detune.linearRampToValueAtTime(0, actx.currentTime + 0.05);
+		},
+		makeOsc: (state, action) => {
+			let { note, freq } = action.payload;
+			let newOsc = new Osc(
+				actx,
+				state.osc1Settings.type,
+				freq,
+				state.osc1Settings.detune,
+				state.envelope,
+				gain1
+			);
+			freq = Math.round(freq);
+			nodes[freq] = newOsc;
+		},
+		killOsc: (state, action) => {
+			let { note, freq } = action.payload;
+			freq = Math.round(freq);
+
+			if (nodes[freq]) {
+				nodes[freq].stop();
+				delete nodes[freq];
+			}
 		},
 	},
 });
 
 // Action creators are generated for each case reducer function
-export const { startOsc1, changeOsc1, muteSwitch, changeFilter, detuneToZero } =
-	slidersSlice.actions;
+export const {
+	changeOsc1,
+	changeFilter,
+	detuneToZero,
+	makeOsc,
+	killOsc,
+	changeEnvelope,
+} = slidersSlice.actions;
 
 export default slidersSlice.reducer;

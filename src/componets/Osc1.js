@@ -4,7 +4,7 @@ import { useSelector, useDispatch } from "react-redux";
 
 export default function Osc1() {
 	const { osc1Settings } = useSelector((state) => state.sliders);
-	const { frequency, detune, volume, types } = osc1Settings;
+	const { detune, types } = osc1Settings;
 	const dispatch = useDispatch();
 	const osc1Handler = (e) => {
 		const { id, value } = e.target;
@@ -13,20 +13,9 @@ export default function Osc1() {
 	const detuneReset = () => {
 		dispatch(detuneToZero());
 	};
-
 	return (
 		<div className="controls">
 			<h2>Oscillator</h2>
-			<label htmlFor="frequency">{"frequency: " + frequency}</label>
-			<input
-				type="range"
-				name="frequency"
-				value={frequency}
-				id="frequency"
-				min="50"
-				max="500"
-				onChange={osc1Handler}
-			/>
 			<label htmlFor="detune">{"detune: " + detune}</label>
 			<input
 				type="range"
@@ -38,16 +27,6 @@ export default function Osc1() {
 				onChange={osc1Handler}
 				onDoubleClick={detuneReset}
 			/>
-			<label htmlFor="volume">{"volume: " + volume / 1000}</label>
-			<input
-				type="range"
-				name="volume"
-				value={volume}
-				id="volume"
-				min="1"
-				max="1000"
-				onChange={osc1Handler}
-			/>
 			<label htmlFor="type">type</label>
 			<select name="type" id="type" onChange={osc1Handler}>
 				{types.map((type) => {
@@ -58,6 +37,7 @@ export default function Osc1() {
 					);
 				})}
 			</select>
+			<img src="./ilusha.jpg" alt="" />
 		</div>
 	);
 }

@@ -13,16 +13,19 @@ h2 {
 .controls {
 	display: flex;
 	flex-direction: column;
-	width: 300px;
+	width: 200px;
 	color: white;
-	font-size: 1.5rem;
-	padding: 1rem;
+	font-size: 1rem;
+	padding: 0.5rem;
 }
 .modules {
-	background: rgba(0, 42, 75, 0.485);
+	background: linear-gradient(rgb(0, 27, 55), transparent);
 	display: flex;
 	flex-direction: row;
-	margin-bottom: 20px;
+}
+.synth {
+	width: 800px;
+	margin: 0 auto;
 }
 
 // ***
