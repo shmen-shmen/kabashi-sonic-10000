@@ -107,3 +107,14 @@ input[type="range"]::-moz-range-track {
 	border-radius: 1.3px;
 	border: 0.2px solid #010101;
 }
+
+.delay {
+	color: white;
+	height: 50px;
+}
+.delay-true {
+	background-color: red;
+}
+.delay-false {
+	background-color: black;
+}

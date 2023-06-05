@@ -21,7 +21,7 @@ export default function Envelope() {
 				value={attack}
 				id="attack"
 				max="1"
-				step="0.001"
+				step="0.01"
 				onChange={envelopeHandler}
 			/>
 			<label htmlFor="decay">{"decay: " + decay}</label>
@@ -31,7 +31,7 @@ export default function Envelope() {
 				value={decay}
 				id="decay"
 				max="1"
-				step="0.001"
+				step="0.01"
 				onChange={envelopeHandler}
 			/>
 			<label htmlFor="sustain">{"sustain: " + sustain}</label>
@@ -41,7 +41,7 @@ export default function Envelope() {
 				value={sustain}
 				id="sustain"
 				max="1"
-				step="0.001"
+				step="0.01"
 				onChange={envelopeHandler}
 			/>
 			<label htmlFor="release">{"release: " + release}</label>
@@ -50,7 +50,7 @@ export default function Envelope() {
 				name="release"
 				value={release}
 				id="release"
-				max="1"
+				max="2"
 				step="0.001"
 				onChange={envelopeHandler}
 			/>

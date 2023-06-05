@@ -1,13 +1,22 @@
+// a class that creates an oscillator (makes a sound)
 export default class Osc {
+	// constructor takes freq value from keyboard and else from controls
 	constructor(actx, type, frequency, detune, envelope, connection) {
 		this.actx = actx;
+
 		//stupid i know, but otherwise get some error
-		this.envelope = envelope;
+		this.envelope = envelope || {
+			attack: 0.005,
+			decay: 0.1,
+			sustain: 0.6,
+			release: 0.1,
+		};
 		this.attack = this.envelope.attack;
 		this.decay = this.envelope.decay;
 		this.sustain = this.envelope.sustain;
 		this.release = this.envelope.release;
 		//stupid i know, but otherwise get some error
+
 		this.osc = actx.createOscillator();
 		this.osc.frequency.value = frequency;
 		this.osc.detune.value = detune;
@@ -22,9 +31,10 @@ export default class Osc {
 	}
 	start() {
 		let { currentTime } = this.actx;
-		console.log(this.attack, this.decay, this.sustain, this.release);
+		// otherwise all sorts of weird gain behaviour on each key press (and release)
 		this.gateGain.gain.cancelScheduledValues(currentTime);
-		this.gateGain.gain.setValueAtTime(0, (currentTime = this.easing));
+		// gain raises to 1 in attack time, then drops to sustain in release time and stays there as long as the button is pressed
+		this.gateGain.gain.setValueAtTime(0, currentTime + this.easing);
 		this.gateGain.gain.linearRampToValueAtTime(
 			1,
 			currentTime + this.attack + this.easing
@@ -34,14 +44,18 @@ export default class Osc {
 			currentTime + this.attack + this.decay + this.easing
 		);
 	}
+
 	stop() {
 		let { currentTime } = this.actx;
 		this.gateGain.gain.cancelScheduledValues(currentTime);
+		console.log("release", this.gateGain.gain.value);
+		// as soon as the button is released, gain drops to 0 in release time
 		this.gateGain.gain.setTargetAtTime(
 			0,
 			currentTime,
 			this.release + this.easing
 		);
+		// after some time the osc is disonnected
 		setTimeout(() => {
 			this.osc.disconnect();
 		}, 10000);

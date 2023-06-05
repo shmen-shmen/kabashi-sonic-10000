@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { useEffect } from "react";
-import Osc from "../../app/Osc";
+import Osc from "../../app/osc";
+import createEchoDelayEffect from "../../app/delay";
 
 let actx = new AudioContext();
 let out = actx.destination;
@@ -8,11 +8,17 @@ let out = actx.destination;
 let gain1 = actx.createGain();
 gain1.gain.value = 0.5;
 let filter = actx.createBiquadFilter();
+let masterGain = actx.createGain();
 
 gain1.connect(filter);
-filter.connect(out);
+filter.connect(masterGain);
+masterGain.connect(out);
 
 let nodes = {};
+
+let echoDelay = createEchoDelayEffect(actx);
+echoDelay.placeBetween(masterGain, out);
+// echoDelay.discard();
 
 const initialState = {
 	osc1Settings: {
@@ -47,6 +53,11 @@ const initialState = {
 		],
 		type: filter.type,
 	},
+	delaySettings: {
+		isOn: echoDelay.isApplied(),
+		dryWet: echoDelay.dryWetValue(),
+		delayTime: echoDelay.timeValue(),
+	},
 };
 
 export const slidersSlice = createSlice({
@@ -70,7 +81,11 @@ export const slidersSlice = createSlice({
 		},
 		changeEnvelope: (state, action) => {
 			const { id, value } = action.payload;
-			state.envelope = { ...state.envelope, [id]: parseFloat(value, 1000) };
+			state.envelope = {
+				...state.envelope,
+				// the value that gets sent from event listener is a string
+				[id]: Number(value),
+			};
 		},
 		changeFilter: (state, action) => {
 			const { id, value } = action.payload;
@@ -93,8 +108,9 @@ export const slidersSlice = createSlice({
 					break;
 			}
 		},
-		detuneToZero: (state) => {
-			state.osc1Settings = { ...state.osc1Settings, detune: 0 };
+		detuneToZero: (state, action) => {
+			console.log(action.payload);
+			// state.osc1Settings = { ...state.osc1Settings, detune: 0 };
 		},
 		makeOsc: (state, action) => {
 			let { note, freq } = action.payload;
@@ -118,6 +134,27 @@ export const slidersSlice = createSlice({
 				delete nodes[freq];
 			}
 		},
+		toggleDelay: (state) => {
+			state.delaySettings = {
+				...state.delaySettings,
+				isOn: !state.delaySettings.isOn,
+			};
+			echoDelay.isApplied() ? echoDelay.discard() : echoDelay.apply();
+		},
+		changeDelay: (state, action) => {
+			const { id, value } = action.payload;
+			state.delaySettings = { ...state.delaySettings, [id]: value };
+			switch (id) {
+				case "dryWet":
+					echoDelay.changeDryWet(value);
+					break;
+				case "delayTime":
+					echoDelay.changeTime(value);
+					break;
+				default:
+					break;
+			}
+		},
 	},
 });
 
@@ -129,6 +166,8 @@ export const {
 	makeOsc,
 	killOsc,
 	changeEnvelope,
+	toggleDelay,
+	changeDelay,
 } = slidersSlice.actions;
 
 export default slidersSlice.reducer;
