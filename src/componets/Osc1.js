@@ -1,43 +1,84 @@
-import React from "react";
-import { changeOsc1, detuneToZero } from "../features/sliders/slidersSlice";
+import React, { useEffect, useState } from "react";
+import {
+	changeOsc1,
+	resetOsc1,
+	changeMasterGain,
+} from "../features/sliders/slidersSlice";
 import { useSelector, useDispatch } from "react-redux";
 
 export default function Osc1() {
-	const { osc1Settings } = useSelector((state) => state.sliders);
+	const { osc1Settings, masterGain, canSee } = useSelector(
+		(state) => state.sliders
+	);
 	const { detune, types } = osc1Settings;
 	const dispatch = useDispatch();
 	const osc1Handler = (e) => {
 		const { id, value } = e.target;
 		dispatch(changeOsc1({ id, value }));
 	};
-	const detuneReset = () => {
-		dispatch(detuneToZero());
+	const masterGainHandler = (e) => {
+		const { value } = e.target;
+		dispatch(changeMasterGain({ value }));
 	};
+	const resetHandler = (e) => {
+		const { id } = e.target;
+		dispatch(resetOsc1({ id }));
+	};
+
+	let [showVladika, setShowVladika] = useState(false);
+	useEffect(() => {
+		if (canSee && canSee <= 0.33) {
+			console.log(canSee);
+			setShowVladika(true);
+			setTimeout(() => {
+				setShowVladika(false);
+			}, 3000);
+		}
+	}, [canSee]);
+
 	return (
-		<div className="controls">
+		<div className="controls" id="osc-conrols">
 			<h2>Oscillator</h2>
-			<label htmlFor="detune">{"detune: " + detune}</label>
-			<input
-				type="range"
-				name="detune"
-				value={detune}
-				id="detune"
-				min="-100"
-				max="100"
-				onChange={osc1Handler}
-				onDoubleClick={detuneReset}
-			/>
-			<label htmlFor="type">type</label>
-			<select name="type" id="type" onChange={osc1Handler}>
-				{types.map((type) => {
-					return (
-						<option value={type} key={type + "-key"}>
-							{type}
-						</option>
-					);
-				})}
-			</select>
-			<img src="./ilusha.jpg" alt="" />
+			<div className="control-el">
+				<label htmlFor="type">type:</label>
+				<select name="type" id="type" onChange={osc1Handler}>
+					{types.map((type) => {
+						return (
+							<option value={type} key={type + "-osc"}>
+								{type}
+							</option>
+						);
+					})}
+				</select>
+			</div>
+			{showVladika ? <div className="sticker shanin"></div> : null}
+			<div className="control-el">
+				<label htmlFor="detune">{"detune: " + detune}</label>
+				<input
+					type="range"
+					name="detune"
+					value={detune}
+					id="detune"
+					min="-100"
+					max="100"
+					onChange={osc1Handler}
+					onDoubleClick={resetHandler}
+				/>
+			</div>
+			<div className="control-el">
+				<label htmlFor="masterGain">{"master gain: " + masterGain}</label>
+				<input
+					type="range"
+					name="masterGain"
+					value={masterGain}
+					id="masterGain"
+					min="0"
+					max="1"
+					step="0.1"
+					onChange={masterGainHandler}
+					onDoubleClick={resetHandler}
+				/>
+			</div>
 		</div>
 	);
 }

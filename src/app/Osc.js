@@ -7,11 +7,13 @@ export default class Osc {
 		//stupid i know, but otherwise get some error
 		this.envelope = envelope || {
 			attack: 0.005,
+			peak: 1,
 			decay: 0.1,
 			sustain: 0.6,
 			release: 0.1,
 		};
 		this.attack = this.envelope.attack;
+		this.peak = this.envelope.peak;
 		this.decay = this.envelope.decay;
 		this.sustain = this.envelope.sustain;
 		this.release = this.envelope.release;
@@ -36,7 +38,7 @@ export default class Osc {
 		// gain raises to 1 in attack time, then drops to sustain in release time and stays there as long as the button is pressed
 		this.gateGain.gain.setValueAtTime(0, currentTime + this.easing);
 		this.gateGain.gain.linearRampToValueAtTime(
-			1,
+			this.peak,
 			currentTime + this.attack + this.easing
 		);
 		this.gateGain.gain.linearRampToValueAtTime(
@@ -48,7 +50,6 @@ export default class Osc {
 	stop() {
 		let { currentTime } = this.actx;
 		this.gateGain.gain.cancelScheduledValues(currentTime);
-		console.log("release", this.gateGain.gain.value);
 		// as soon as the button is released, gain drops to 0 in release time
 		this.gateGain.gain.setTargetAtTime(
 			0,

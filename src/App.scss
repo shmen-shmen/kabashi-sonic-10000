@@ -1,31 +1,99 @@
+@font-face {
+	font-family: "IBM ISO 9";
+	src: url(../public/Web437_IBM_DOS_ISO9.woff) format("woff");
+	font-weight: normal;
+	font-style: normal;
+}
+
 * {
-	font-family: monospace;
+	image-rendering: pixelated;
+	font-family: "IBM ISO 9", monospace;
 }
 
 body {
 	min-height: 100vh;
-	background: linear-gradient(to top, rgb(0, 49, 88) 0%, rgb(255, 255, 255));
+	background-color: #000000;
+	background-image: url("../public/zhitel-small.jpg");
+	background-size: cover;
+	background-position: center;
+	color: rgb(148, 230, 255);
 }
 
-h2 {
-	text-transform: capitalize;
-}
-.controls {
-	display: flex;
-	flex-direction: column;
-	width: 200px;
-	color: white;
-	font-size: 1rem;
-	padding: 0.5rem;
+#app {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	-ms-transform: translate(-50%, -50%);
+	transform: translate(-50%, -50%);
+	max-width: 800px;
+	// background-image: url("../public/trees-sharp.jpg");
+	background-size: cover;
+	background-position: center;
+	padding: 2rem;
 }
 .modules {
-	background: linear-gradient(rgb(0, 27, 55), transparent);
 	display: flex;
 	flex-direction: row;
 }
-.synth {
-	width: 800px;
-	margin: 0 auto;
+.controls {
+	position: relative;
+	display: flex;
+	flex-direction: column;
+
+	flex-basis: 0;
+	flex-grow: 1;
+	flex-shrink: 1;
+
+	font-size: 1rem;
+	padding: 0.5rem;
+}
+.control-el {
+	height: 75px;
+}
+h1 {
+	background: linear-gradient(rgb(0, 50, 124), black);
+	text-transform: uppercase;
+	font-size: 2rem;
+	padding: 0.25rem;
+	margin: 0 0.5rem 0 0.5rem;
+}
+h2 {
+	text-transform: capitalize;
+
+	background-color: black;
+	background: linear-gradient(rgb(0, 21, 52), black);
+}
+label {
+	background-color: black;
+	background: linear-gradient(rgb(0, 21, 52), black);
+	font-size: 1.2rem;
+	padding: 2px;
+}
+
+select {
+	background-color: black;
+	background: linear-gradient(rgb(0, 21, 52), black);
+	color: rgb(148, 230, 255);
+
+	font-size: 1.2rem;
+	border: none;
+}
+.shanin {
+	background-image: url("../public/shamin-smaller.png");
+	background-size: 100%;
+	aspect-ratio: 1/1;
+	width: 150px;
+	z-index: -1;
+	bottom: 0;
+}
+.shmin {
+	// opacity: 0.5;
+	position: absolute;
+	top: 195px;
+	left: 0.5rem;
+	z-index: -1;
+	width: calc(100% - 1rem);
+	transform: rotate(180deg);
 }
 
 // ***
@@ -59,11 +127,11 @@ input[type="range"]::-ms-track {
 /* Special styling for WebKit/Blink */
 input[type="range"]::-webkit-slider-thumb {
 	-webkit-appearance: none;
-	// border: 4px solid white;
+	border: 4px solid rgb(148, 230, 255);
 	height: 22px;
 	width: 22px;
-	border-radius: 0;
-	background: red;
+	border-radius: 50%;
+	background: transparent;
 	cursor: pointer;
 	margin-top: -6px; /* You need to specify a margin in Chrome, but in Firefox and IE it is automatic */
 	// box-shadow: 2px 2px 0px #000000; /* Add cool effects to your sliders! */
@@ -71,11 +139,10 @@ input[type="range"]::-webkit-slider-thumb {
 
 /* All the same stuff for Firefox */
 input[type="range"]::-moz-range-thumb {
-	border: 4px solid black;
-	height: 22px;
-	width: 22px;
-	margin-top: -7px;
-	border-radius: 0;
+	border: 4px solid rgb(148, 230, 255);
+	height: 18px;
+	width: 18px;
+	border-radius: 50%;
 	background: transparent;
 	// box-shadow: 2px 2px 0px #000000;
 	cursor: pointer;
@@ -86,12 +153,12 @@ input[type="range"]::-moz-range-thumb {
 // ***
 input[type="range"]::-webkit-slider-runnable-track {
 	width: 100%;
-	height: 22px;
+	height: 8.4px;
 	cursor: pointer;
-	// box-shadow: 1px 1px 1px #000000, 0px 0px 1px #0d0d0d;
-	background: black;
-	border-radius: 1px;
-	border: 6px solid white;
+	box-shadow: 1px 1px 1px #000000, 0px 0px 1px #0d0d0d;
+	background: linear-gradient(rgb(0, 21, 52), black);
+	// border-radius: 1px;
+	// border: 6px solid white;
 }
 
 // input[type="range"]:focus::-webkit-slider-runnable-track {
@@ -103,18 +170,7 @@ input[type="range"]::-moz-range-track {
 	height: 8.4px;
 	cursor: pointer;
 	box-shadow: 1px 1px 1px #000000, 0px 0px 1px #0d0d0d;
-	background: #3071a9;
+	background: linear-gradient(rgb(0, 21, 52), black);
 	border-radius: 1.3px;
 	border: 0.2px solid #010101;
-}
-
-.delay {
-	color: white;
-	height: 50px;
-}
-.delay-true {
-	background-color: red;
-}
-.delay-false {
-	background-color: black;
 }

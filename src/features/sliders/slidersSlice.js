@@ -2,39 +2,41 @@ import { createSlice } from "@reduxjs/toolkit";
 import Osc from "../../app/osc";
 import createEchoDelayEffect from "../../app/delay";
 
+//audio context, master gain (gain1), output node are initiated
 let actx = new AudioContext();
 let out = actx.destination;
 
 let gain1 = actx.createGain();
 gain1.gain.value = 0.5;
 let filter = actx.createBiquadFilter();
-let masterGain = actx.createGain();
+filter.connect(gain1);
+gain1.connect(out);
 
-gain1.connect(filter);
-filter.connect(masterGain);
-masterGain.connect(out);
-
+//active notes (pressed keys on keyboard)
 let nodes = {};
 
+// echo delay is plugged into signal chain with bypass on (no echo effect)
 let echoDelay = createEchoDelayEffect(actx);
-echoDelay.placeBetween(masterGain, out);
-// echoDelay.discard();
+echoDelay.placeBetween(gain1, out);
 
 const initialState = {
+	canSee: false,
+
 	osc1Settings: {
 		detune: 0,
 		types: ["sine", "square", "sawtooth", "triangle"],
 		type: "sine",
 	},
 
+	masterGain: gain1.gain.value,
+
 	envelope: {
 		attack: 0.005,
+		peak: 1,
 		decay: 0.1,
 		sustain: 0.6,
 		release: 0.1,
 	},
-
-	isMute: false,
 
 	filterSettings: {
 		frequency: filter.frequency.value,
@@ -53,6 +55,7 @@ const initialState = {
 		],
 		type: filter.type,
 	},
+
 	delaySettings: {
 		isOn: echoDelay.isApplied(),
 		dryWet: echoDelay.dryWetValue(),
@@ -68,16 +71,17 @@ export const slidersSlice = createSlice({
 			const { id, value } = action.payload;
 			state.osc1Settings = { ...state.osc1Settings, [id]: value };
 		},
-		muteSwitch: (state) => {
-			state.isMute = !state.isMute;
-			if (gain1.gain.value === 0.5) {
-				gain1.gain.exponentialRampToValueAtTime(
-					0.0001,
-					actx.currentTime + 0.05
-				);
-			} else {
-				gain1.gain.exponentialRampToValueAtTime(0.5, actx.currentTime + 0.05);
-			}
+		resetOsc1: (state, action) => {
+			const { id } = action.payload;
+			state.osc1Settings = {
+				...state.osc1Settings,
+				[id]: initialState.osc1Settings[id],
+			};
+		},
+		changeMasterGain: (state, action) => {
+			const { value } = action.payload;
+			state.masterGain = value;
+			gain1.gain.linearRampToValueAtTime(value, actx.currentTime + 0.05);
 		},
 		changeEnvelope: (state, action) => {
 			const { id, value } = action.payload;
@@ -85,6 +89,13 @@ export const slidersSlice = createSlice({
 				...state.envelope,
 				// the value that gets sent from event listener is a string
 				[id]: Number(value),
+			};
+		},
+		resetEnvelope: (state, action) => {
+			const { id } = action.payload;
+			state.envelope = {
+				...state.envelope,
+				[id]: initialState.envelope[id],
 			};
 		},
 		changeFilter: (state, action) => {
@@ -108,9 +119,29 @@ export const slidersSlice = createSlice({
 					break;
 			}
 		},
-		detuneToZero: (state, action) => {
-			console.log(action.payload);
-			// state.osc1Settings = { ...state.osc1Settings, detune: 0 };
+		resetFilter: (state, action) => {
+			const { id } = action.payload;
+			state.filterSettings = {
+				...state.filterSettings,
+				[id]: initialState.filterSettings[id],
+			};
+			switch (id) {
+				case "gain":
+					filter.gain.linearRampToValueAtTime(
+						initialState.filterSettings[id],
+						actx.currentTime + 0.05
+					);
+					break;
+				case "type":
+					filter.type = initialState.filterSettings[id];
+					break;
+				default:
+					filter[id].exponentialRampToValueAtTime(
+						initialState.filterSettings[id],
+						actx.currentTime + 0.05
+					);
+					break;
+			}
 		},
 		makeOsc: (state, action) => {
 			let { note, freq } = action.payload;
@@ -120,7 +151,7 @@ export const slidersSlice = createSlice({
 				freq,
 				state.osc1Settings.detune,
 				state.envelope,
-				gain1
+				filter
 			);
 			freq = Math.round(freq);
 			nodes[freq] = newOsc;
@@ -134,13 +165,23 @@ export const slidersSlice = createSlice({
 				delete nodes[freq];
 			}
 		},
-		toggleDelay: (state) => {
-			state.delaySettings = {
-				...state.delaySettings,
-				isOn: !state.delaySettings.isOn,
-			};
-			echoDelay.isApplied() ? echoDelay.discard() : echoDelay.apply();
-		},
+		// toggleDelay: (state) => {
+		// 	let dryWet, isOn;
+		// 	if (echoDelay.isApplied()) {
+		// 		dryWet = 0;
+		// 		isOn = false;
+		// 		echoDelay.discard();
+		// 	} else {
+		// 		dryWet = 1;
+		// 		isOn = true;
+		// 		echoDelay.apply();
+		// 	}
+		// 	state.delaySettings = {
+		// 		...state.delaySettings,
+		// 		isOn: isOn,
+		// 		dryWet: dryWet,
+		// 	};
+		// },
 		changeDelay: (state, action) => {
 			const { id, value } = action.payload;
 			state.delaySettings = { ...state.delaySettings, [id]: value };
@@ -155,19 +196,25 @@ export const slidersSlice = createSlice({
 					break;
 			}
 		},
+		show: (state) => {
+			state.canSee = Math.random() * 11;
+		},
 	},
 });
 
-// Action creators are generated for each case reducer function
 export const {
 	changeOsc1,
+	resetOsc1,
+	changeMasterGain,
+	changeEnvelope,
+	resetEnvelope,
 	changeFilter,
-	detuneToZero,
+	resetFilter,
 	makeOsc,
 	killOsc,
-	changeEnvelope,
-	toggleDelay,
+	// toggleDelay,
 	changeDelay,
+	show,
 } = slidersSlice.actions;
 
 export default slidersSlice.reducer;
