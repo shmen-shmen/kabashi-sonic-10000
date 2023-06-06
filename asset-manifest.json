@@ -1,15 +1,15 @@
 {
   "files": {
     "main.css": "/sliders/static/css/main.65a83295.css",
-    "main.js": "/sliders/static/js/main.a975b226.js",
+    "main.js": "/sliders/static/js/main.13f399a2.js",
     "static/media/zhitel-small.jpg": "/sliders/static/media/zhitel-small.15459fcd7c710ba1ccbf.jpg",
     "static/media/Web437_IBM_DOS_ISO9.woff": "/sliders/static/media/Web437_IBM_DOS_ISO9.02ce57d033d06c83ddbe.woff",
     "index.html": "/sliders/index.html",
     "main.65a83295.css.map": "/sliders/static/css/main.65a83295.css.map",
-    "main.a975b226.js.map": "/sliders/static/js/main.a975b226.js.map"
+    "main.13f399a2.js.map": "/sliders/static/js/main.13f399a2.js.map"
   },
   "entrypoints": [
     "static/css/main.65a83295.css",
-    "static/js/main.a975b226.js"
+    "static/js/main.13f399a2.js"
   ]
 }
