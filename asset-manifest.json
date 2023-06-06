@@ -1,15 +1,15 @@
 {
   "files": {
-    "main.css": "/sliders/static/css/main.65a83295.css",
-    "main.js": "/sliders/static/js/main.13f399a2.js",
-    "static/media/zhitel-small.jpg": "/sliders/static/media/zhitel-small.15459fcd7c710ba1ccbf.jpg",
-    "static/media/Web437_IBM_DOS_ISO9.woff": "/sliders/static/media/Web437_IBM_DOS_ISO9.02ce57d033d06c83ddbe.woff",
-    "index.html": "/sliders/index.html",
-    "main.65a83295.css.map": "/sliders/static/css/main.65a83295.css.map",
-    "main.13f399a2.js.map": "/sliders/static/js/main.13f399a2.js.map"
+    "main.css": "/kabashi-sonic-10000/static/css/main.518b91c5.css",
+    "main.js": "/kabashi-sonic-10000/static/js/main.13f399a2.js",
+    "static/media/zhitel-small.jpg": "/kabashi-sonic-10000/static/media/zhitel-small.15459fcd7c710ba1ccbf.jpg",
+    "static/media/Web437_IBM_DOS_ISO9.woff": "/kabashi-sonic-10000/static/media/Web437_IBM_DOS_ISO9.02ce57d033d06c83ddbe.woff",
+    "index.html": "/kabashi-sonic-10000/index.html",
+    "main.518b91c5.css.map": "/kabashi-sonic-10000/static/css/main.518b91c5.css.map",
+    "main.13f399a2.js.map": "/kabashi-sonic-10000/static/js/main.13f399a2.js.map"
   },
   "entrypoints": [
-    "static/css/main.65a83295.css",
+    "static/css/main.518b91c5.css",
     "static/js/main.13f399a2.js"
   ]
 }
