@@ -2,7 +2,7 @@
 	"name": "kabashi_sonic_10000",
 	"version": "0.1.0",
 	"private": false,
-	"homepage": "https://shmen-shmen.github.io/sliders",
+	"homepage": "https://shmen-shmen.github.io/kabashi-sonic-10000",
 	"dependencies": {
 		"@reduxjs/toolkit": "^1.9.5",
 		"@testing-library/jest-dom": "^5.16.5",
