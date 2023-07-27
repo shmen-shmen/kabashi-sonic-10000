@@ -8,12 +8,14 @@ const Keyboard = () => {
 	useEffect(() => {
 		const keyboard = new QwertyHancock({
 			id: "keyboard",
-			width: "799",
+			width: "500",
 			height: "100",
-			octaves: 3,
+			octaves: 2,
 			startNote: "C4",
-			whiteKeyColour: "rgba(0, 50, 124, 0.0)",
-			blackKeyColour: "rgba(148, 230, 255, 0.0)",
+			// whiteKeyColour: "rgba(0, 50, 124, 0.0)",
+			whiteKeyColour: "rgba(0, 50, 124, 1.0)",
+			// blackKeyColour: "rgba(148, 230, 255, 0.0)",
+			blackKeyColour: "rgba(148, 230, 255, 1.0)",
 			activeColour: "rgba(255, 255, 255)",
 			// activeColour: "rgba(148, 230, 255)",
 		});

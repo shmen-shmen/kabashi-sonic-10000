@@ -5,32 +5,132 @@
 	font-style: normal;
 }
 
+@mixin for-phone-only {
+	@media (max-width: 599px) {
+		@content;
+	}
+}
+@mixin for-tablet-portrait-up {
+	@media (min-width: 600px) {
+		@content;
+	}
+}
+@mixin for-tablet-landscape-up {
+	@media (min-width: 900px) {
+		@content;
+	}
+}
+@mixin for-desktop-up {
+	@media (min-width: 1200px) {
+		@content;
+	}
+}
+@mixin for-big-desktop-up {
+	@media (min-width: 1800px) {
+		@content;
+	}
+}
+
 * {
 	image-rendering: pixelated;
 	font-family: "IBM ISO 9", monospace;
+	margin: 0;
+	padding: 0;
 }
 
-body {
+// dialog that prompts user to rotate screen if on mobile
+
+#app {
 	min-height: 100vh;
+	min-width: 100vw;
 	background-color: #000000;
 	background-image: url("../public/zhitel-small.jpg");
 	background-size: cover;
+	background-repeat: no-repeat;
 	background-position: center;
+
 	color: rgb(148, 230, 255);
+	overflow: scroll;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+
+	.synth {
+		height: 100%;
+	}
+
+	#rotateDeviceDialog {
+		@include for-tablet-landscape-up {
+			@media screen and (orientation: landscape) {
+				display: none;
+			}
+		}
+
+		position: fixed;
+		z-index: 2;
+		top: 0;
+		height: 100%;
+		width: 100%;
+
+		background-color: transparent;
+		backdrop-filter: grayscale(100%) blur(4px);
+		border: none;
+
+		.dialog-contents {
+			max-width: 600px;
+			height: 100%;
+			margin: 0 auto;
+			font-size: 1.5rem;
+			display: flex;
+			flex-direction: column;
+			justify-content: center;
+		}
+
+		p {
+			color: white;
+			padding: 1rem;
+			text-align: center;
+			background: linear-gradient(rgb(0, 50, 124), black);
+		}
+
+		form {
+			text-align: center;
+		}
+
+		button {
+			color: white;
+			background: linear-gradient(rgb(0, 50, 124), black);
+			padding: 0rem 2rem 0rem 2rem;
+			border: none;
+			font-size: 1.5rem;
+			margin-top: 1rem;
+
+			&:active {
+				color: red;
+			}
+
+			@media (hover: hover) {
+				&:hover {
+					color: red;
+				}
+			}
+		}
+	}
+
+	.synth {
+		max-width: 900px;
+		margin: 0 auto;
+	}
+
+	h1 {
+		background: linear-gradient(rgb(0, 50, 124), black);
+		text-transform: uppercase;
+		font-size: 2rem;
+		padding: 0.25rem;
+		margin: 0 0.5rem 0 0.5rem;
+	}
 }
 
-#app {
-	position: absolute;
-	top: 50%;
-	left: 50%;
-	-ms-transform: translate(-50%, -50%);
-	transform: translate(-50%, -50%);
-	max-width: 800px;
-	// background-image: url("../public/trees-sharp.jpg");
-	background-size: cover;
-	background-position: center;
-	padding: 2rem;
-}
 .modules {
 	display: flex;
 	flex-direction: row;
@@ -50,13 +150,7 @@ body {
 .control-el {
 	height: 75px;
 }
-h1 {
-	background: linear-gradient(rgb(0, 50, 124), black);
-	text-transform: uppercase;
-	font-size: 2rem;
-	padding: 0.25rem;
-	margin: 0 0.5rem 0 0.5rem;
-}
+
 h2 {
 	text-transform: capitalize;
 
@@ -173,4 +267,14 @@ input[type="range"]::-moz-range-track {
 	background: linear-gradient(rgb(0, 21, 52), black);
 	border-radius: 1.3px;
 	border: 0.2px solid #010101;
+}
+
+#keyboard {
+	height: 504px;
+
+	ul {
+		position: absolute;
+		left: 50%;
+		transform: translateX(-50%);
+	}
 }
