@@ -2,7 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 import Osc from "./synthModules/osc";
 import createEchoDelayEffect from "./synthModules/delay";
 
-//audio context, master gain (gain1), output node are initiated
+//audio context, master gain (gain1), output node are initiated here
 let actx = new AudioContext();
 let out = actx.destination;
 
