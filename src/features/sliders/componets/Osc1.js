@@ -1,9 +1,5 @@
 import React, { useEffect, useState } from "react";
-import {
-	changeOsc1,
-	resetOsc1,
-	changeMasterGain,
-} from "../features/sliders/slidersSlice";
+import { changeOsc1, resetOsc1, changeMasterGain } from "../slidersSlice";
 import { useSelector, useDispatch } from "react-redux";
 
 export default function Osc1() {

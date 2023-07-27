@@ -1,8 +1,5 @@
 import React from "react";
-import {
-	changeEnvelope,
-	resetEnvelope,
-} from "../features/sliders/slidersSlice";
+import { changeEnvelope, resetEnvelope } from "../slidersSlice";
 import { useSelector, useDispatch } from "react-redux";
 
 export default function Envelope() {

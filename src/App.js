@@ -1,9 +1,9 @@
 import "./App.scss";
-import Osc1 from "./componets/Osc1";
-import Filter from "./componets/Filter";
-import Keyboard from "./componets/Keyboard";
-import Envelope from "./componets/Envelope";
-import Delay from "./componets/Delay";
+import Osc1 from "./features/sliders/componets/Osc1";
+import Filter from "./features/sliders/componets/Filter";
+import Keyboard from "./features/sliders/componets/Keyboard";
+import Envelope from "./features/sliders/componets/Envelope";
+import Delay from "./features/sliders/componets/Delay";
 
 function App() {
 	return (

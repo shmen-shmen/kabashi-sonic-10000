@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
-import Osc from "../../app/osc";
-import createEchoDelayEffect from "../../app/delay";
+import Osc from "./synthModules/osc";
+import createEchoDelayEffect from "./synthModules/delay";
 
 //audio context, master gain (gain1), output node are initiated
 let actx = new AudioContext();

@@ -1,6 +1,6 @@
 import React from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { changeFilter, resetFilter } from "../features/sliders/slidersSlice";
+import { changeFilter, resetFilter } from "../slidersSlice";
 
 export default function Filter() {
 	const { filterSettings } = useSelector((state) => state.sliders);

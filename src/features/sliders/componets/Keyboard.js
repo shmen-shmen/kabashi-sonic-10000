@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import QwertyHancock from "qwerty-hancock";
-import { makeOsc, killOsc, show } from "../features/sliders/slidersSlice";
+import { makeOsc, killOsc, show } from "../slidersSlice";
 
 const Keyboard = () => {
 	const dispatch = useDispatch();

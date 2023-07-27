@@ -1,6 +1,6 @@
 import React from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { changeDelay } from "../features/sliders/slidersSlice";
+import { changeDelay } from "../slidersSlice";
 
 export default function Delay() {
 	const { delaySettings } = useSelector((state) => state.sliders);
