@@ -60,7 +60,7 @@
 	}
 
 	#rotateDeviceDialog {
-		@include for-tablet-landscape-up {
+		@include for-tablet-portrait-up {
 			@media screen and (orientation: landscape) {
 				display: none;
 			}
