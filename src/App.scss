@@ -1,3 +1,5 @@
+@import url("normalize.css");
+
 @font-face {
 	font-family: "IBM ISO 9";
 	src: url(../public/Web437_IBM_DOS_ISO9.woff) format("woff");
@@ -185,11 +187,10 @@ select {
 	background-size: 100%;
 	aspect-ratio: 1/1;
 	width: 150px;
-	z-index: -1;
+	z-index: 1;
 	bottom: 0;
 }
 .shmin {
-	// opacity: 0.5;
 	position: absolute;
 	top: 195px;
 	left: 0.5rem;
@@ -206,7 +207,7 @@ input[type="range"] {
 	appearance: none;
 	width: 100%; /* Specific width is required for Firefox. */
 	background: transparent; /* Otherwise white in Chrome */
-	padding: 1rem 0 1rem 0;
+	padding: 0rem 0 1rem 0;
 }
 // ***
 // STYLING THE THUMB

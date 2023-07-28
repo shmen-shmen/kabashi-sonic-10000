@@ -4,7 +4,7 @@ import { changeFilter, resetFilter } from "../slidersSlice";
 
 export default function Filter() {
 	const { filterSettings } = useSelector((state) => state.sliders);
-	const { frequency, detune, Q, gain, types, type } = filterSettings;
+	const { frequency, detune, Q, gain, types } = filterSettings;
 
 	const dispatch = useDispatch();
 
@@ -46,7 +46,7 @@ export default function Filter() {
 					onDoubleClick={resetHandler}
 				/>
 			</div>
-			<div className="control-el">
+			{/* <div className="control-el">
 				<label htmlFor="detune">{"detune: " + detune}</label>
 				<input
 					type="range"
@@ -58,7 +58,7 @@ export default function Filter() {
 					onChange={filterHandler}
 					onDoubleClick={resetHandler}
 				/>
-			</div>
+			</div> */}
 			<div className="control-el">
 				<label htmlFor="Q">{"Q: " + Q}</label>
 				<input
