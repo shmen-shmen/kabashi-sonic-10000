@@ -61,6 +61,10 @@ const initialState = {
 		dryWet: echoDelay.dryWetValue(),
 		delayTime: echoDelay.timeValue(),
 	},
+
+	keyboardSettings: {
+		octave: 4,
+	},
 };
 
 export const slidersSlice = createSlice({
@@ -199,6 +203,16 @@ export const slidersSlice = createSlice({
 		show: (state) => {
 			state.canSee = Math.random() * 11;
 		},
+		octaveDown: (state) => {
+			if (state.keyboardSettings.octave > 1) {
+				state.keyboardSettings.octave -= 1;
+			} else return state;
+		},
+		octaveUp: (state) => {
+			if (state.keyboardSettings.octave < 9) {
+				state.keyboardSettings.octave += 1;
+			} else return state;
+		},
 	},
 });
 
@@ -215,6 +229,8 @@ export const {
 	// toggleDelay,
 	changeDelay,
 	show,
+	octaveUp,
+	octaveDown,
 } = slidersSlice.actions;
 
 export default slidersSlice.reducer;

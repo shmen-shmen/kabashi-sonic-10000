@@ -127,7 +127,11 @@
 		text-transform: uppercase;
 		font-size: 2rem;
 		padding: 0.25rem;
-		margin: 0 0.5rem 0 0.5rem;
+		margin-bottom: 1rem;
+
+		@include for-tablet-portrait-up() {
+			margin: 0 0.5rem 0 0.5rem;
+		}
 	}
 }
 
@@ -139,7 +143,7 @@
 	position: relative;
 	display: flex;
 	flex-direction: column;
-
+	justify-content: flex-start;
 	flex-basis: 0;
 	flex-grow: 1;
 	flex-shrink: 1;
@@ -149,19 +153,23 @@
 }
 .control-el {
 	height: 75px;
+	margin-bottom: 0.5rem;
 }
 
 h2 {
 	text-transform: capitalize;
-
 	background-color: black;
 	background: linear-gradient(rgb(0, 21, 52), black);
+	margin-bottom: 0.5rem;
 }
 label {
 	background-color: black;
 	background: linear-gradient(rgb(0, 21, 52), black);
 	font-size: 1.2rem;
 	padding: 2px;
+	display: block;
+	width: fit-content;
+	margin-bottom: 0.5rem;
 }
 
 select {
@@ -271,10 +279,48 @@ input[type="range"]::-moz-range-track {
 
 #keyboard {
 	height: 504px;
+	position: relative;
 
 	ul {
 		position: absolute;
 		left: 50%;
-		transform: translateX(-50%);
+		transform: translate(-50%, -4px);
+	}
+
+	.octave-control {
+		position: absolute;
+		left: calc(50%);
+		transform: translate(calc(-250px - 100%), -4px);
+		top: 0;
+		font-size: 2rem;
+		line-height: 50px;
+		text-align: center;
+
+		#octave-up {
+			height: 50px;
+			background: linear-gradient(to bottom, rgb(0, 50, 124), black);
+			&.active {
+				color: white;
+				background: linear-gradient(to bottom, red, black);
+			}
+			&:active {
+				color: white;
+				background: linear-gradient(to bottom, red, black);
+			}
+		}
+
+		#octave-down {
+			height: 50px;
+			background: linear-gradient(to top, rgb(0, 50, 124), black);
+
+			&.active {
+				color: white;
+				background: linear-gradient(to bottom, red, black);
+			}
+			&:active {
+				color: white;
+				background: linear-gradient(to bottom, red, black);
+			}
+		}
 	}
 }

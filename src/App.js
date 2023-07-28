@@ -9,7 +9,7 @@ import { useEffect } from "react";
 function App() {
 	return (
 		<div className="App" id="app">
-			<dialog open id="rotateDeviceDialog">
+			{/* <dialog open id="rotateDeviceDialog">
 				<div className="dialog-contents">
 					<p>
 						Dear User, would you kindly rotate 🤸‍♀️ your phone so that everything
@@ -19,7 +19,7 @@ function App() {
 						<button>ok</button>
 					</form>
 				</div>
-			</dialog>
+			</dialog> */}
 			<div className="synth">
 				<h1>kabashi sonic 10000</h1>
 				<div className="modules">
