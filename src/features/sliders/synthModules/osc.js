@@ -33,9 +33,10 @@ export default class Osc {
 	}
 	start() {
 		let { currentTime } = this.actx;
+		console.log("key fired");
 		// otherwise all sorts of weird gain behaviour on each key press (and release)
 		this.gateGain.gain.cancelScheduledValues(currentTime);
-		// gain raises to 1 in attack time, then drops to sustain in release time and stays there as long as the button is pressed
+		// gain raises to peak value in attack time, then drops to sustain in release time and stays there as long as the button is pressed
 		this.gateGain.gain.setValueAtTime(0, currentTime + this.easing);
 		this.gateGain.gain.linearRampToValueAtTime(
 			this.peak,
@@ -49,6 +50,7 @@ export default class Osc {
 
 	stop() {
 		let { currentTime } = this.actx;
+		let timeout = (this.release + this.easing) * 1000;
 		this.gateGain.gain.cancelScheduledValues(currentTime);
 		// as soon as the button is released, gain drops to 0 in release time
 		this.gateGain.gain.setTargetAtTime(
@@ -59,6 +61,6 @@ export default class Osc {
 		// after some time the osc is disonnected
 		setTimeout(() => {
 			this.osc.disconnect();
-		}, 10000);
+		}, 5000);
 	}
 }

@@ -40,7 +40,7 @@ export default function Envelope() {
 					name="peak"
 					value={peak}
 					id="peak"
-					max="1"
+					max="0.9"
 					step="0.005"
 					onChange={envelopeHandler}
 					onDoubleClick={envelopeResetHandler}
@@ -66,7 +66,7 @@ export default function Envelope() {
 					name="sustain"
 					value={sustain}
 					id="sustain"
-					max="1"
+					max="0.9"
 					step="0.01"
 					onChange={envelopeHandler}
 					onDoubleClick={envelopeResetHandler}

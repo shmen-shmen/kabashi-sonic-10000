@@ -17,7 +17,7 @@ let nodes = {};
 
 // echo delay is plugged into signal chain with bypass on (no echo effect)
 let echoDelay = createEchoDelayEffect(actx);
-echoDelay.placeBetween(gain1, out);
+echoDelay.placeBetween(filter, gain1);
 
 const initialState = {
 	canSee: false,
@@ -32,7 +32,7 @@ const initialState = {
 
 	envelope: {
 		attack: 0.005,
-		peak: 1,
+		peak: 0.9,
 		decay: 0.1,
 		sustain: 0.6,
 		release: 0.1,
@@ -206,11 +206,19 @@ export const slidersSlice = createSlice({
 		octaveDown: (state) => {
 			if (state.keyboardSettings.octave > 1) {
 				state.keyboardSettings.octave -= 1;
+				Object.keys(nodes).map((node) => {
+					console.log(node);
+					nodes[node].stop();
+				});
 			} else return state;
 		},
 		octaveUp: (state) => {
 			if (state.keyboardSettings.octave < 9) {
 				state.keyboardSettings.octave += 1;
+				Object.keys(nodes).map((node) => {
+					console.log(node);
+					nodes[node].stop();
+				});
 			} else return state;
 		},
 	},
