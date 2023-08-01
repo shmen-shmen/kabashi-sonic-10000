@@ -1,15 +1,15 @@
 {
   "files": {
-    "main.css": "/kabashi-sonic-10000/static/css/main.48284607.css",
-    "main.js": "/kabashi-sonic-10000/static/js/main.2131b049.js",
+    "main.css": "/kabashi-sonic-10000/static/css/main.16f91d6a.css",
+    "main.js": "/kabashi-sonic-10000/static/js/main.e2343b76.js",
     "static/media/zhitel-small.jpg": "/kabashi-sonic-10000/static/media/zhitel-small.15459fcd7c710ba1ccbf.jpg",
     "static/media/Web437_IBM_DOS_ISO9.woff": "/kabashi-sonic-10000/static/media/Web437_IBM_DOS_ISO9.02ce57d033d06c83ddbe.woff",
     "index.html": "/kabashi-sonic-10000/index.html",
-    "main.48284607.css.map": "/kabashi-sonic-10000/static/css/main.48284607.css.map",
-    "main.2131b049.js.map": "/kabashi-sonic-10000/static/js/main.2131b049.js.map"
+    "main.16f91d6a.css.map": "/kabashi-sonic-10000/static/css/main.16f91d6a.css.map",
+    "main.e2343b76.js.map": "/kabashi-sonic-10000/static/js/main.e2343b76.js.map"
   },
   "entrypoints": [
-    "static/css/main.48284607.css",
-    "static/js/main.2131b049.js"
+    "static/css/main.16f91d6a.css",
+    "static/js/main.e2343b76.js"
   ]
 }
