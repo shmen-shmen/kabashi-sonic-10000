@@ -3,9 +3,7 @@ import { changeOsc1, resetOsc1, changeMasterGain } from "../slidersSlice";
 import { useSelector, useDispatch } from "react-redux";
 
 export default function Osc1() {
-	const { osc1Settings, masterGain, canSee } = useSelector(
-		(state) => state.sliders
-	);
+	const { osc1Settings, masterGain } = useSelector((state) => state.sliders);
 	const { detune, types } = osc1Settings;
 	const dispatch = useDispatch();
 	const osc1Handler = (e) => {
@@ -20,17 +18,6 @@ export default function Osc1() {
 		const { id } = e.target;
 		dispatch(resetOsc1({ id }));
 	};
-
-	let [showVladika, setShowVladika] = useState(false);
-	useEffect(() => {
-		if (canSee && canSee <= 0.33) {
-			console.log(canSee);
-			setShowVladika(true);
-			setTimeout(() => {
-				setShowVladika(false);
-			}, 3000);
-		}
-	}, [canSee]);
 
 	return (
 		<div className="controls" id="osc-conrols">
@@ -47,7 +34,6 @@ export default function Osc1() {
 					})}
 				</select>
 			</div>
-			{showVladika ? <div className="sticker shanin"></div> : null}
 			<div className="control-el">
 				<label htmlFor="detune">{"detune: " + detune}</label>
 				<input

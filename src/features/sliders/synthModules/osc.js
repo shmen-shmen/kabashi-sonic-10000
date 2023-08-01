@@ -61,6 +61,6 @@ export default class Osc {
 		// after some time the osc is disonnected
 		setTimeout(() => {
 			this.osc.disconnect();
-		}, 5000);
+		}, 10000);
 	}
 }

@@ -125,7 +125,8 @@
 	}
 
 	.synth {
-		max-width: 900px;
+		width: 100%;
+		max-width: 600px;
 		margin: 0 auto;
 
 		h1 {
@@ -277,12 +278,12 @@
 	// cat image that appears sometimes when you play
 	// ***
 	.shanin {
+		position: absolute;
+		transform: translate(-40%, 60%);
 		background-image: url("../public/shamin-smaller.png");
 		background-size: 100%;
 		aspect-ratio: 1/1;
-		width: 150px;
-		z-index: 1;
-		bottom: 0;
+		width: 250px;
 	}
 
 	// ***
@@ -303,27 +304,26 @@
 
 	#keyboard {
 		height: 500px;
-		position: relative;
+		position: absolute;
+		margin: 0 auto;
+		// background-color: aliceblue;
 
 		// this is one key
 		ul {
 			position: absolute;
-			left: 50%;
-			// have to shift keys slightly
-			// to account for border width
-			transform: translate(-50%, -4px);
+			transform: translateY(-5px);
 		}
 
 		.octave-control {
 			position: absolute;
 			top: 50%;
 			right: 50%;
-			transform: translate(calc(250px + 100%), -55%);
+			transform: translate(calc(250px + 60%), -50%);
 			font-size: 1.5rem;
 
 			#octave-up {
 				padding: 10px;
-				transform: translateY(-5%);
+				transform: translateY(calc(-5% - 5px));
 				background: linear-gradient(to bottom, rgb(0, 50, 124), black);
 				&.active {
 					color: white;
@@ -337,7 +337,7 @@
 
 			#octave-down {
 				padding: 10px;
-				transform: translateY(5%);
+				transform: translateY(calc(-5%));
 				background: linear-gradient(to top, rgb(0, 50, 124), black);
 
 				&.active {

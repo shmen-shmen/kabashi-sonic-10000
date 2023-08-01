@@ -1,15 +1,28 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { changeDelay } from "../slidersSlice";
 
 export default function Delay() {
-	const { delaySettings } = useSelector((state) => state.sliders);
+	const { delaySettings, canSee } = useSelector((state) => state.sliders);
 	const { dryWet, delayTime } = delaySettings;
 	const dispatch = useDispatch();
 	const delayHandler = (e) => {
 		const { id, value } = e.target;
 		dispatch(changeDelay({ id, value }));
 	};
+
+	let [showVladika, setShowVladika] = useState(false);
+
+	useEffect(() => {
+		console.log(canSee);
+		if (canSee && canSee <= 0.05) {
+			setShowVladika(true);
+			setTimeout(() => {
+				setShowVladika(false);
+			}, 3000);
+		}
+	}, [canSee]);
+
 	return (
 		<div className="controls">
 			<h2>Echo Delay</h2>
@@ -39,6 +52,7 @@ export default function Delay() {
 					onChange={delayHandler}
 				/>
 			</div>
+			{showVladika ? <div className="sticker shanin"></div> : null}
 			{/* <img src="./shmin-small.png" alt="" className="sticker shmin" /> */}
 			{/* <div className="control-el">
 			i figured i don't need a switch as i have a gain slider
