@@ -38,14 +38,16 @@
 	font-family: "IBM ISO 9", monospace;
 	margin: 0;
 	padding: 0;
+	box-sizing: border-box;
 }
 
-// dialog that prompts user to rotate screen if on mobile
-
+// ***
+// rules that position app on the screen + app background
+// ***
 #app {
 	min-height: 100vh;
 	min-width: 100vw;
-	background-color: #000000;
+	background-color: black;
 	background-image: url("../public/zhitel-small.jpg");
 	background-size: cover;
 	background-repeat: no-repeat;
@@ -61,6 +63,9 @@
 		height: 100%;
 	}
 
+	// ***
+	// dialog that prompts user to rotate screen if on mobile
+	// ***
 	#rotateDeviceDialog {
 		@include for-tablet-portrait-up {
 			@media screen and (orientation: landscape) {
@@ -122,205 +127,227 @@
 	.synth {
 		max-width: 900px;
 		margin: 0 auto;
-	}
 
-	h1 {
-		background: linear-gradient(rgb(0, 50, 124), black);
-		text-transform: uppercase;
-		font-size: 2rem;
-		padding: 0.25rem;
-		margin-bottom: 1rem;
-
-		@include for-tablet-portrait-up() {
-			margin: 0 0.5rem 0 0.5rem;
-		}
-	}
-}
-
-.modules {
-	display: flex;
-	flex-direction: row;
-}
-.controls {
-	position: relative;
-	display: flex;
-	flex-direction: column;
-	justify-content: flex-start;
-	flex-basis: 0;
-	flex-grow: 1;
-	flex-shrink: 1;
-
-	font-size: 1rem;
-	padding: 0.5rem;
-}
-.control-el {
-	height: 75px;
-	margin-bottom: 0.5rem;
-}
-
-h2 {
-	text-transform: capitalize;
-	background-color: black;
-	background: linear-gradient(rgb(0, 21, 52), black);
-	margin-bottom: 0.5rem;
-}
-label {
-	background-color: black;
-	background: linear-gradient(rgb(0, 21, 52), black);
-	font-size: 1.2rem;
-	padding: 2px;
-	display: block;
-	width: fit-content;
-	margin-bottom: 0.5rem;
-}
-
-select {
-	background-color: black;
-	background: linear-gradient(rgb(0, 21, 52), black);
-	color: rgb(148, 230, 255);
-
-	font-size: 1.2rem;
-	border: none;
-}
-.shanin {
-	background-image: url("../public/shamin-smaller.png");
-	background-size: 100%;
-	aspect-ratio: 1/1;
-	width: 150px;
-	z-index: 1;
-	bottom: 0;
-}
-.shmin {
-	position: absolute;
-	top: 195px;
-	left: 0.5rem;
-	z-index: -1;
-	width: calc(100% - 1rem);
-	transform: rotate(180deg);
-}
-
-// ***
-// REMOVING DEFAULT SLIDER STYLES
-// ***
-input[type="range"] {
-	-webkit-appearance: none; /* Hides the slider so that custom slider can be made */
-	appearance: none;
-	width: 100%; /* Specific width is required for Firefox. */
-	background: transparent; /* Otherwise white in Chrome */
-	padding: 0rem 0 1rem 0;
-}
-// ***
-// STYLING THE THUMB
-// ***
-input[type="range"]::-webkit-slider-thumb {
-	-webkit-appearance: none;
-}
-input[type="range"]:focus {
-	outline: none; /* Removes the blue border. You should probably do some kind of focus styling for accessibility reasons though. */
-}
-input[type="range"]::-ms-track {
-	width: 100%;
-	cursor: pointer;
-	/* Hides the slider so custom styles can be added */
-	background: transparent;
-	border-color: transparent;
-	color: transparent;
-}
-
-/* Special styling for WebKit/Blink */
-input[type="range"]::-webkit-slider-thumb {
-	-webkit-appearance: none;
-	border: 4px solid rgb(148, 230, 255);
-	height: 22px;
-	width: 22px;
-	border-radius: 50%;
-	background: transparent;
-	cursor: pointer;
-	margin-top: -6px; /* You need to specify a margin in Chrome, but in Firefox and IE it is automatic */
-	// box-shadow: 2px 2px 0px #000000; /* Add cool effects to your sliders! */
-}
-
-/* All the same stuff for Firefox */
-input[type="range"]::-moz-range-thumb {
-	border: 4px solid rgb(148, 230, 255);
-	height: 18px;
-	width: 18px;
-	border-radius: 50%;
-	background: transparent;
-	// box-shadow: 2px 2px 0px #000000;
-	cursor: pointer;
-}
-
-// ***
-// STYLING THE TRACK
-// ***
-input[type="range"]::-webkit-slider-runnable-track {
-	width: 100%;
-	height: 8.4px;
-	cursor: pointer;
-	box-shadow: 1px 1px 1px #000000, 0px 0px 1px #0d0d0d;
-	background: linear-gradient(rgb(0, 21, 52), black);
-	// border-radius: 1px;
-	// border: 6px solid white;
-}
-
-// input[type="range"]:focus::-webkit-slider-runnable-track {
-// 	background: #367ebd;
-// }
-
-input[type="range"]::-moz-range-track {
-	width: 100%;
-	height: 8.4px;
-	cursor: pointer;
-	box-shadow: 1px 1px 1px #000000, 0px 0px 1px #0d0d0d;
-	background: linear-gradient(rgb(0, 21, 52), black);
-	border-radius: 1.3px;
-	border: 0.2px solid #010101;
-}
-
-#keyboard {
-	height: 504px;
-	position: relative;
-
-	ul {
-		position: absolute;
-		left: 50%;
-		transform: translate(-50%, -4px);
-	}
-
-	.octave-control {
-		position: absolute;
-		left: calc(50%);
-		transform: translate(calc(-250px - 100%), -4px);
-		top: 0;
-		font-size: 2rem;
-		line-height: 50px;
-		text-align: center;
-
-		#octave-up {
-			height: 50px;
-			background: linear-gradient(to bottom, rgb(0, 50, 124), black);
-			&.active {
-				color: white;
-				background: linear-gradient(to bottom, red, black);
-			}
-			&:active {
-				color: white;
-				background: linear-gradient(to bottom, red, black);
-			}
+		h1 {
+			background: linear-gradient(rgb(0, 50, 124), black);
+			text-transform: uppercase;
+			font-size: 2rem;
+			width: 100%;
+			margin-bottom: 1rem;
+			padding: 0 0.5rem 0 0.5rem;
 		}
 
-		#octave-down {
-			height: 50px;
-			background: linear-gradient(to top, rgb(0, 50, 124), black);
+		// ***
+		// contaier for synth controls
+		// ***
+		.modules {
+			display: flex;
+			flex-direction: row;
+			justify-content: space-between;
+			gap: 10px;
 
-			&.active {
-				color: white;
-				background: linear-gradient(to bottom, red, black);
+			// ***
+			// each column with sliders
+			// ***
+			.controls {
+				position: relative;
+				display: flex;
+				flex-direction: column;
+				// justify-content: flex-start;
+				// flex-basis: 0;
+				// flex-grow: 1;
+				// flex-shrink: 1;
+
+				font-size: 1rem;
+
+				h2 {
+					text-transform: capitalize;
+					background: linear-gradient(rgb(0, 21, 52), black);
+					margin-bottom: 0.5rem;
+					width: 100%;
+				}
+
+				.control-el {
+					height: 75px;
+					margin-bottom: 0.5rem;
+
+					label {
+						background-color: black;
+						background: linear-gradient(rgb(0, 21, 52), black);
+						font-size: 1.2rem;
+						padding: 2px;
+						display: block;
+						width: 100%;
+						margin-bottom: 0.5rem;
+					}
+
+					select {
+						background-color: black;
+						background: linear-gradient(rgb(0, 21, 52), black);
+						color: rgb(148, 230, 255);
+
+						font-size: 1.2rem;
+						border: none;
+					}
+
+					// ***
+					// REMOVING DEFAULT SLIDER STYLES
+					// ***
+					input[type="range"] {
+						-webkit-appearance: none; /* Hides the slider so that custom slider can be made */
+						appearance: none;
+						width: 100%; /* Specific width is required for Firefox. */
+						background: transparent; /* Otherwise white in Chrome */
+						padding: 0rem 0 1rem 0;
+					}
+					// ***
+					// STYLING THE THUMB
+					// ***
+					input[type="range"]::-webkit-slider-thumb {
+						-webkit-appearance: none;
+					}
+					input[type="range"]:focus {
+						outline: none; /* Removes the blue border. You should probably do some kind of focus styling for accessibility reasons though. */
+					}
+					input[type="range"]::-ms-track {
+						width: 100%;
+						cursor: pointer;
+						/* Hides the slider so custom styles can be added */
+						background: transparent;
+						border-color: transparent;
+						color: transparent;
+					}
+
+					/* Special styling for WebKit/Blink */
+					input[type="range"]::-webkit-slider-thumb {
+						-webkit-appearance: none;
+						border: 4px solid rgb(148, 230, 255);
+						height: 22px;
+						width: 22px;
+						border-radius: 50%;
+						background: transparent;
+						cursor: pointer;
+						margin-top: -6px; /* You need to specify a margin in Chrome, but in Firefox and IE it is automatic */
+						// box-shadow: 2px 2px 0px #000000; /* Add cool effects to your sliders! */
+					}
+
+					/* All the same stuff for Firefox */
+					input[type="range"]::-moz-range-thumb {
+						border: 4px solid rgb(148, 230, 255);
+						height: 18px;
+						width: 18px;
+						border-radius: 50%;
+						background: transparent;
+						// box-shadow: 2px 2px 0px #000000;
+						cursor: pointer;
+					}
+
+					// ***
+					// STYLING THE TRACK
+					// ***
+					input[type="range"]::-webkit-slider-runnable-track {
+						width: 100%;
+						height: 8.4px;
+						cursor: pointer;
+						box-shadow: 1px 1px 1px #000000, 0px 0px 1px #0d0d0d;
+						background: linear-gradient(rgb(0, 21, 52), black);
+						// border-radius: 1px;
+						// border: 6px solid white;
+					}
+
+					// input[type="range"]:focus::-webkit-slider-runnable-track {
+					// 	background: #367ebd;
+					// }
+
+					input[type="range"]::-moz-range-track {
+						width: 100%;
+						height: 8.4px;
+						cursor: pointer;
+						box-shadow: 1px 1px 1px #000000, 0px 0px 1px #0d0d0d;
+						background: linear-gradient(rgb(0, 21, 52), black);
+						border-radius: 1.3px;
+						border: 0.2px solid #010101;
+					}
+				}
 			}
-			&:active {
-				color: white;
-				background: linear-gradient(to bottom, red, black);
+		}
+	}
+
+	// ***
+	// cat image that appears sometimes when you play
+	// ***
+	.shanin {
+		background-image: url("../public/shamin-smaller.png");
+		background-size: 100%;
+		aspect-ratio: 1/1;
+		width: 150px;
+		z-index: 1;
+		bottom: 0;
+	}
+
+	// ***
+	// ????????
+	// ***
+	// .shmin {
+	// 	position: absolute;
+	// 	top: 195px;
+	// 	left: 0.5rem;
+	// 	z-index: -1;
+	// 	width: calc(100% - 1rem);
+	// 	transform: rotate(180deg);
+	// }
+
+	// ***
+	// self-explanatory
+	// ***
+
+	#keyboard {
+		height: 500px;
+		position: relative;
+
+		// this is one key
+		ul {
+			position: absolute;
+			left: 50%;
+			// have to shift keys slightly
+			// to account for border width
+			transform: translate(-50%, -4px);
+		}
+
+		.octave-control {
+			position: absolute;
+			top: 50%;
+			right: 50%;
+			transform: translate(calc(250px + 100%), -55%);
+			font-size: 1.5rem;
+
+			#octave-up {
+				padding: 10px;
+				transform: translateY(-5%);
+				background: linear-gradient(to bottom, rgb(0, 50, 124), black);
+				&.active {
+					color: white;
+					background: linear-gradient(to bottom, red, black);
+				}
+				&:active {
+					color: white;
+					background: linear-gradient(to bottom, red, black);
+				}
+			}
+
+			#octave-down {
+				padding: 10px;
+				transform: translateY(5%);
+				background: linear-gradient(to top, rgb(0, 50, 124), black);
+
+				&.active {
+					color: white;
+					background: linear-gradient(to bottom, red, black);
+				}
+				&:active {
+					color: white;
+					background: linear-gradient(to bottom, red, black);
+				}
 			}
 		}
 	}

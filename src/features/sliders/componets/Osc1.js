@@ -62,7 +62,10 @@ export default function Osc1() {
 				/>
 			</div>
 			<div className="control-el">
-				<label htmlFor="output Gain">{"output  gain: " + masterGain}</label>
+				<label htmlFor="output Gain">
+					output gain
+					<p>{masterGain}</p>
+				</label>
 				<input
 					type="range"
 					name="output Gain"

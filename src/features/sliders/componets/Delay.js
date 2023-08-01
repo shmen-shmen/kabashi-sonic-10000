@@ -27,7 +27,7 @@ export default function Delay() {
 				/>
 			</div>
 			<div className="control-el">
-				<label htmlFor="delayTime">{"delay time: " + delayTime}</label>
+				<label htmlFor="delayTime">{"time: " + delayTime}</label>
 				<input
 					type="range"
 					name="delayTime"

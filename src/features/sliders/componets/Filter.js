@@ -34,7 +34,9 @@ export default function Filter() {
 				</select>
 			</div>
 			<div className="control-el">
-				<label htmlFor="frequency">{"frequency: " + frequency}</label>
+				<label htmlFor="frequency">
+					frequency<p>{frequency}</p>
+				</label>
 				<input
 					type="range"
 					name="frequency"

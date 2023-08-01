@@ -28,7 +28,7 @@ export default function Envelope() {
 					value={attack}
 					id="attack"
 					max="1"
-					step="0.005"
+					step="0.01"
 					onChange={envelopeHandler}
 					onDoubleClick={envelopeResetHandler}
 				/>
@@ -41,7 +41,7 @@ export default function Envelope() {
 					value={peak}
 					id="peak"
 					max="0.9"
-					step="0.005"
+					step="0.01"
 					onChange={envelopeHandler}
 					onDoubleClick={envelopeResetHandler}
 				/>
@@ -79,8 +79,8 @@ export default function Envelope() {
 					name="release"
 					value={release}
 					id="release"
-					max="2"
-					step="0.001"
+					max="10"
+					step="0.01"
 					onChange={envelopeHandler}
 					onDoubleClick={envelopeResetHandler}
 				/>
