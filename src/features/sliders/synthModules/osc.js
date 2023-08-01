@@ -1,7 +1,7 @@
 // a class that creates an oscillator (makes a sound)
 export default class Osc {
 	// constructor takes freq value from keyboard and else from controls
-	constructor(actx, type, frequency, detune, envelope, connection) {
+	constructor(actx, type, frequency, detune, envelope, connection, modulator) {
 		this.actx = actx;
 
 		//stupid i know, but otherwise get some error
@@ -28,12 +28,12 @@ export default class Osc {
 		this.osc.connect(this.gateGain);
 		this.gateGain.connect(connection);
 		this.easing = 0.005;
+		modulator.connect(this.osc.detune);
 		this.osc.start();
 		this.start();
 	}
 	start() {
 		let { currentTime } = this.actx;
-		console.log("key fired");
 		// otherwise all sorts of weird gain behaviour on each key press (and release)
 		this.gateGain.gain.cancelScheduledValues(currentTime);
 		// gain raises to peak value in attack time, then drops to sustain in release time and stays there as long as the button is pressed
@@ -50,7 +50,6 @@ export default class Osc {
 
 	stop() {
 		let { currentTime } = this.actx;
-		let timeout = (this.release + this.easing) * 1000;
 		this.gateGain.gain.cancelScheduledValues(currentTime);
 		// as soon as the button is released, gain drops to 0 in release time
 		this.gateGain.gain.setTargetAtTime(

@@ -12,6 +12,14 @@ let filter = actx.createBiquadFilter();
 filter.connect(gain1);
 gain1.connect(out);
 
+// LFO
+let lfo = actx.createOscillator();
+lfo.frequency.value = 10;
+const lfoGain = actx.createGain();
+lfoGain.gain.value = 0;
+lfo.connect(lfoGain);
+lfo.start();
+
 //active notes (pressed keys on keyboard)
 let nodes = {};
 
@@ -60,6 +68,11 @@ const initialState = {
 		isOn: echoDelay.isApplied(),
 		dryWet: echoDelay.dryWetValue(),
 		delayTime: echoDelay.timeValue(),
+	},
+
+	lfoSettings: {
+		lfoFrequency: lfo.frequency.value,
+		lfoAmplitude: 0,
 	},
 
 	keyboardSettings: {
@@ -148,20 +161,21 @@ export const slidersSlice = createSlice({
 			}
 		},
 		makeOsc: (state, action) => {
-			let { note, freq } = action.payload;
+			let { freq } = action.payload;
 			let newOsc = new Osc(
 				actx,
 				state.osc1Settings.type,
 				freq,
 				state.osc1Settings.detune,
 				state.envelope,
-				filter
+				filter,
+				lfoGain
 			);
 			freq = Math.round(freq);
 			nodes[freq] = newOsc;
 		},
 		killOsc: (state, action) => {
-			let { note, freq } = action.payload;
+			let { freq } = action.payload;
 			freq = Math.round(freq);
 
 			if (nodes[freq]) {
@@ -200,6 +214,45 @@ export const slidersSlice = createSlice({
 					break;
 			}
 		},
+
+		changeLfo: (state, action) => {
+			const { id, value } = action.payload;
+			switch (id) {
+				case "lfoFrequency":
+					lfo.frequency.linearRampToValueAtTime(value, actx.currentTime + 0.05);
+					break;
+				case "lfoAmplitude":
+					lfoGain.gain.linearRampToValueAtTime(value, actx.currentTime + 0.05);
+					break;
+				default:
+					break;
+			}
+			state.lfoSettings[id] = value;
+		},
+
+		resetLfo: (state, action) => {
+			const id = action.payload;
+			const initial = initialState.lfoSettings[id];
+
+			switch (id) {
+				case "lfoFrequency":
+					lfo.frequency.linearRampToValueAtTime(
+						initial,
+						actx.currentTime + 0.05
+					);
+					break;
+				case "lfoAmplitude":
+					lfoGain.gain.linearRampToValueAtTime(
+						initial,
+						actx.currentTime + 0.05
+					);
+					break;
+				default:
+					break;
+			}
+			state.lfoSettings[id] = initial;
+		},
+
 		show: (state) => {
 			state.canSee = Math.random() * 11;
 		},
@@ -236,6 +289,8 @@ export const {
 	killOsc,
 	// toggleDelay,
 	changeDelay,
+	changeLfo,
+	resetLfo,
 	show,
 	octaveUp,
 	octaveDown,

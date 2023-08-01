@@ -14,7 +14,6 @@ export default function Delay() {
 	let [showVladika, setShowVladika] = useState(false);
 
 	useEffect(() => {
-		console.log(canSee);
 		if (canSee && canSee <= 0.05) {
 			setShowVladika(true);
 			setTimeout(() => {
@@ -27,7 +26,7 @@ export default function Delay() {
 		<div className="controls">
 			<h2>Echo Delay</h2>
 			<div className="control-el">
-				<label htmlFor="dryWet">{"wet gain: " + dryWet}</label>
+				<label htmlFor="dryWet">{" gain: " + dryWet}</label>
 				<input
 					type="range"
 					name="dryWet"

@@ -1,22 +1,45 @@
 import React, { useEffect, useState } from "react";
-import { changeOsc1, resetOsc1, changeMasterGain } from "../slidersSlice";
+import {
+	changeOsc1,
+	resetOsc1,
+	changeMasterGain,
+	changeLfo,
+	resetLfo,
+} from "../slidersSlice";
 import { useSelector, useDispatch } from "react-redux";
 
 export default function Osc1() {
-	const { osc1Settings, masterGain } = useSelector((state) => state.sliders);
+	const { osc1Settings, lfoSettings, masterGain } = useSelector(
+		(state) => state.sliders
+	);
+
 	const { detune, types } = osc1Settings;
+	const { lfoFrequency, lfoAmplitude } = lfoSettings;
 	const dispatch = useDispatch();
+
 	const osc1Handler = (e) => {
 		const { id, value } = e.target;
 		dispatch(changeOsc1({ id, value }));
 	};
+
 	const masterGainHandler = (e) => {
 		const { value } = e.target;
 		dispatch(changeMasterGain({ value }));
 	};
+
 	const resetHandler = (e) => {
 		const { id } = e.target;
 		dispatch(resetOsc1({ id }));
+	};
+
+	const lfoHandler = (e) => {
+		const { id, value } = e.target;
+		dispatch(changeLfo({ id, value }));
+	};
+
+	const lfoResetHandler = (e) => {
+		console.log(e.target.id);
+		dispatch(resetLfo(e.target.id));
 	};
 
 	return (
@@ -35,16 +58,33 @@ export default function Osc1() {
 				</select>
 			</div>
 			<div className="control-el">
-				<label htmlFor="detune">{"detune: " + detune}</label>
+				<label htmlFor="lfoFrequency">
+					detune freq <p>{lfoFrequency}</p>
+				</label>
 				<input
 					type="range"
-					name="detune"
-					value={detune}
-					id="detune"
-					min="-100"
+					name="lfoFrequency"
+					value={lfoFrequency}
+					id="lfoFrequency"
+					min="0"
 					max="100"
-					onChange={osc1Handler}
-					onDoubleClick={resetHandler}
+					onChange={lfoHandler}
+					onDoubleClick={lfoResetHandler}
+				/>
+			</div>
+			<div className="control-el">
+				<label htmlFor="lfoAmplitude">
+					detune amp <p>{lfoAmplitude}</p>
+				</label>
+				<input
+					type="range"
+					name="lfoAmplitude"
+					value={lfoAmplitude}
+					id="lfoAmplitude"
+					min="0"
+					max="1000"
+					onChange={lfoHandler}
+					onDoubleClick={lfoResetHandler}
 				/>
 			</div>
 			<div className="control-el">
