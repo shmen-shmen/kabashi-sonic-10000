@@ -7,7 +7,7 @@ let actx = new AudioContext();
 let out = actx.destination;
 
 let gain1 = actx.createGain();
-gain1.gain.value = 0.5;
+gain1.gain.value = 0.2;
 let filter = actx.createBiquadFilter();
 filter.connect(gain1);
 gain1.connect(out);
@@ -21,11 +21,17 @@ lfo.connect(lfoGain);
 lfo.start();
 
 //active notes (pressed keys on keyboard)
-let nodes = {};
+const nodes = {};
 
 // echo delay is plugged into signal chain with bypass on (no echo effect)
-let echoDelay = createEchoDelayEffect(actx);
+const echoDelay = createEchoDelayEffect(actx);
 echoDelay.placeBetween(filter, gain1);
+
+// media stream destination to make recordings
+const streamDst = actx.createMediaStreamDestination();
+gain1.connect(streamDst);
+
+export { streamDst };
 
 const initialState = {
 	canSee: false,
@@ -36,7 +42,7 @@ const initialState = {
 		type: "sine",
 	},
 
-	masterGain: gain1.gain.value,
+	masterGain: gain1.gain.value.toFixed(1),
 
 	envelope: {
 		attack: 0.01,
@@ -95,11 +101,13 @@ export const slidersSlice = createSlice({
 				[id]: initialState.osc1Settings[id],
 			};
 		},
+
 		changeMasterGain: (state, action) => {
 			const { value } = action.payload;
 			state.masterGain = value;
 			gain1.gain.linearRampToValueAtTime(value, actx.currentTime + 0.05);
 		},
+
 		changeEnvelope: (state, action) => {
 			const { id, value } = action.payload;
 			state.envelope = {
@@ -115,6 +123,7 @@ export const slidersSlice = createSlice({
 				[id]: initialState.envelope[id],
 			};
 		},
+
 		changeFilter: (state, action) => {
 			const { id, value } = action.payload;
 			state.filterSettings = { ...state.filterSettings, [id]: value };
@@ -136,6 +145,7 @@ export const slidersSlice = createSlice({
 					break;
 			}
 		},
+
 		resetFilter: (state, action) => {
 			const { id } = action.payload;
 			state.filterSettings = {
@@ -160,6 +170,7 @@ export const slidersSlice = createSlice({
 					break;
 			}
 		},
+
 		makeOsc: (state, action) => {
 			let { freq } = action.payload;
 			let newOsc = new Osc(
@@ -183,6 +194,8 @@ export const slidersSlice = createSlice({
 				delete nodes[freq];
 			}
 		},
+
+		// in current setup delay is always on, just wetGain initialies at 0
 		// toggleDelay: (state) => {
 		// 	let dryWet, isOn;
 		// 	if (echoDelay.isApplied()) {
@@ -256,6 +269,7 @@ export const slidersSlice = createSlice({
 		show: (state) => {
 			state.canSee = Math.random() * 11;
 		},
+
 		octaveDown: (state) => {
 			if (state.keyboardSettings.octave > 1) {
 				state.keyboardSettings.octave -= 1;

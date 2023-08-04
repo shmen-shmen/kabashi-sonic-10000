@@ -4,7 +4,7 @@ import Filter from "./features/sliders/componets/Filter";
 import Keyboard from "./features/sliders/componets/Keyboard";
 import Envelope from "./features/sliders/componets/Envelope";
 import Delay from "./features/sliders/componets/Delay";
-import { useEffect } from "react";
+import Recorder from "./features/sliders/componets/Recorder";
 
 function App() {
 	return (
@@ -29,6 +29,7 @@ function App() {
 					<Delay></Delay>
 				</div>
 				<Keyboard></Keyboard>
+				<Recorder></Recorder>
 			</div>
 		</div>
 	);

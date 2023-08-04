@@ -68,6 +68,7 @@
 	// ***
 	#rotateDeviceDialog {
 		@include for-tablet-portrait-up {
+			display: none;
 			@media screen and (orientation: landscape) {
 				display: none;
 			}
@@ -350,5 +351,18 @@
 				}
 			}
 		}
+	}
+}
+
+#recorder {
+	.records-list {
+		display: flex;
+		flex-direction: column;
+	}
+
+	.record {
+		display: flex;
+		justify-content: center;
+		width: 100%;
 	}
 }

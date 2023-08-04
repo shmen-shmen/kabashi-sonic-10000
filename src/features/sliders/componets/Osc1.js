@@ -13,7 +13,7 @@ export default function Osc1() {
 		(state) => state.sliders
 	);
 
-	const { detune, types } = osc1Settings;
+	const { types } = osc1Settings;
 	const { lfoFrequency, lfoAmplitude } = lfoSettings;
 	const dispatch = useDispatch();
 
