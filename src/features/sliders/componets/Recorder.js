@@ -1,9 +1,5 @@
 import { useDispatch, useSelector } from "react-redux";
-import {
-	startRecordingAsync,
-	stopRecordingAsync,
-} from "../synthModules/recorder";
-import { streamDst } from "../slidersSlice";
+
 import {
 	deleteRecord,
 	playRecord,
@@ -14,13 +10,7 @@ import {
 const Recorder = () => {
 	const dispatch = useDispatch();
 
-	const { isRecording, records } = useSelector((state) => state.recorder);
-
-	const recordSequence = () => {
-		if (isRecording) {
-			dispatch(stopRecordingAsync());
-		} else dispatch(startRecordingAsync(streamDst));
-	};
+	const { records } = useSelector((state) => state.recorder);
 
 	const playPauseHandler = (index) => {
 		const trackNumber = index;
@@ -66,9 +56,7 @@ const Recorder = () => {
 
 	return (
 		<div id="recorder">
-			<button onClick={recordSequence}>
-				{isRecording ? "stop recording" : "start recording"}
-			</button>
+			<h2 id="recorder-header">MY TUNES:</h2>
 			<div className="records-list">
 				{records.map((record, index) => {
 					const { audioUrl, clipName, isPlaying, timeline } = record;

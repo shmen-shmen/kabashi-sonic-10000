@@ -1,14 +1,37 @@
 import { useEffect } from "react";
 import { octaveDown, octaveUp } from "../slidersSlice";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import {
+	startRecordingAsync,
+	stopRecordingAsync,
+} from "../synthModules/recorder";
+import { streamDst } from "../slidersSlice";
 
 const OctaveUpDown = () => {
 	const dispatch = useDispatch();
 
 	useEffect(() => {
+		// window.addEventListener("keydown", handleRecPress);
 		window.addEventListener("keydown", handleOctavePress);
 		window.addEventListener("keyup", handleOctaveRelease);
 	}, []);
+
+	const { isRecording } = useSelector((state) => state.recorder);
+
+	// const handleRecPress = (e) => {
+	// 	if (e.code !== "KeyR") {
+	// 		return;
+	// 	}
+	// 	recordSequence();
+	// };
+
+	const recordSequence = () => {
+		if (isRecording) {
+			dispatch(stopRecordingAsync());
+		} else {
+			dispatch(startRecordingAsync(streamDst));
+		}
+	};
 
 	const handleOctavePress = (e) => {
 		switch (e.code) {
@@ -37,23 +60,34 @@ const OctaveUpDown = () => {
 	};
 
 	return (
-		<div className={`octave-control`}>
-			<div
-				id="octave-up"
-				onClick={() => {
-					dispatch(octaveUp());
-				}}
-			>
-				up
+		<div className="keyboard-controls">
+			<div className={`octave-control`}>
+				<button
+					id="octave-up"
+					className="keyboard-control-btn"
+					onClick={() => {
+						dispatch(octaveUp());
+					}}
+				>
+					↑
+				</button>
+				<button
+					id="octave-down"
+					className="keyboard-control-btn"
+					onClick={() => {
+						dispatch(octaveDown());
+					}}
+				>
+					↓
+				</button>
 			</div>
-			<div
-				id="octave-down"
-				onClick={() => {
-					dispatch(octaveDown());
-				}}
+			<button
+				id="rec-btn"
+				onClick={recordSequence}
+				className={`keyboard-control-btn ${isRecording ? "active" : ""}`}
 			>
-				down
-			</div>
+				REC
+			</button>
 		</div>
 	);
 };

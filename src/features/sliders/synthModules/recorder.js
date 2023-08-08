@@ -4,34 +4,30 @@ import {
 	stopRecording,
 } from "../actions/actions";
 
-import lamejs from "lamejs";
-
 let mediaRecorder;
 
 export const startRecordingAsync = (streamDst) => async (dispatch) => {
 	dispatch(startRecording());
 
 	const chunks = [];
-	const mp3Encoder = new lamejs.Mp3Encoder(1, 44100, 128); // 1 channel, 44.1kHz, 128kbps
-
 	mediaRecorder = new MediaRecorder(streamDst.stream);
 	mediaRecorder.start();
 
-	//async action
-	// mediaRecorder.ondataavailable = (evt) => {
-	// 	chunks.push(evt.data);
-	// };
-	mediaRecorder.ondataavailable = async (evt) => {
-		chunks.push(new Int16Array(await evt.data.arrayBuffer()));
+	// async action
+	mediaRecorder.ondataavailable = (evt) => {
+		chunks.push(evt.data);
 	};
 
-	mediaRecorder.onstop = () => {
-		if (chunks[0]["size"] !== 0) {
-			const clipName = prompt("Enter a name for your sound clip");
-			// const blob = new Blob(chunks, { type: "audio/wav; codecs=PCM" });
-			const blob = new Blob([mp3Encoder.encodeBuffer(chunks.flat())], {
-				type: "audio/mp3",
-			});
+	mediaRecorder.onstop = async () => {
+		const dataIsNotEmpty = chunks[0]["size"] !== 0;
+
+		if (dataIsNotEmpty) {
+			const date = new Date();
+			let clipName = prompt(
+				"Enter a name for your tune 🐏",
+				"rec on " + date.toLocaleString()
+			);
+			const blob = new Blob(chunks, { type: "audio/ogg; codecs=opus" });
 			const audioUrl = URL.createObjectURL(blob);
 			dispatch(stopRecording({ audioUrl, clipName, isPlaying: false }));
 		} else {

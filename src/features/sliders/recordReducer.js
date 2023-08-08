@@ -16,6 +16,9 @@ const initialState = {
 		{ audioUrl: "penis", clipName: "chlen", isPlaying: false, timeline: 0 },
 		{ audioUrl: "penis", clipName: "chlen", isPlaying: false, timeline: 0 },
 		{ audioUrl: "penis", clipName: "chlen", isPlaying: false, timeline: 0 },
+		{ audioUrl: "penis", clipName: "chlen", isPlaying: false, timeline: 0 },
+		{ audioUrl: "penis", clipName: "chlen", isPlaying: false, timeline: 0 },
+		{ audioUrl: "penis", clipName: "chlen", isPlaying: false, timeline: 0 },
 	],
 };
 
