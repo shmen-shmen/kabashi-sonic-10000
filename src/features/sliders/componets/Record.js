@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import {
 	deleteRecord,
@@ -22,24 +22,43 @@ function Record({ record, index }) {
 		}
 	};
 
+	const [waitMessage, setWaitMessage] = useState(null);
+	const waitForAudioToLOad = (e) => {
+		setWaitMessage("wait a second, audio is loading...");
+		setTimeout(() => {
+			setWaitMessage(null);
+		}, 1000);
+	};
+
 	const changeTimelinePosition = (e, index) => {
 		let audio;
 
 		switch (e.type) {
 			case "change":
+				// console.log("onchange");
 				audio = document.getElementById(`audio${index}`);
-				const time = (audio.duration * e.target.value) / 100;
-				audio.currentTime = time;
-				audio.pause();
-				dispatch(stopRecord(index));
-				dispatch(scrubRecord({ index: index, timeline: e.target.value }));
+
+				const audioHasLoaded = isFinite(audio.duration);
+				if (audioHasLoaded) {
+					const time = (audio.duration * e.target.value) / 100;
+					audio.currentTime = time;
+					audio.pause();
+					dispatch(stopRecord(index));
+					dispatch(scrubRecord({ index: index, timeline: e.target.value }));
+				} else waitForAudioToLOad();
 				break;
 			case "timeupdate":
+				// console.log("timeupdate");
 				audio = e.target;
-				const percentagePosition = (100 * audio.currentTime) / audio.duration;
-				dispatch(scrubRecord({ index: index, timeline: percentagePosition }));
+				if (audio.currentTime && audio.duration) {
+					const percentagePosition = (100 * audio.currentTime) / audio.duration;
+					dispatch(scrubRecord({ index: index, timeline: percentagePosition }));
+				} else {
+					return;
+				}
 				break;
 			case "ended":
+				// console.log("onended");
 				dispatch(scrubRecord({ index: index, timeline: 0 }));
 				break;
 			default:
@@ -55,7 +74,7 @@ function Record({ record, index }) {
 
 	return (
 		<div className="record" key={`record-${index}-key`}>
-			<p>{clipName}</p>
+			<p id={`clip-name-audio${index}`}>{waitMessage || clipName}</p>
 			<div className="audio-player">
 				<audio
 					controls={false}

@@ -13,12 +13,12 @@ import {
 const initialState = {
 	isRecording: false,
 	records: [
-		{ audioUrl: "penis", clipName: "chlen", isPlaying: false, timeline: 0 },
-		{ audioUrl: "penis", clipName: "chlen", isPlaying: false, timeline: 0 },
-		{ audioUrl: "penis", clipName: "chlen", isPlaying: false, timeline: 0 },
-		{ audioUrl: "penis", clipName: "chlen", isPlaying: false, timeline: 0 },
-		{ audioUrl: "penis", clipName: "chlen", isPlaying: false, timeline: 0 },
-		{ audioUrl: "penis", clipName: "chlen", isPlaying: false, timeline: 0 },
+		// { audioUrl: "penis", clipName: "chlen", isPlaying: false, timeline: 0 },
+		// { audioUrl: "penis", clipName: "chlen", isPlaying: false, timeline: 0 },
+		// { audioUrl: "penis", clipName: "chlen", isPlaying: false, timeline: 0 },
+		// { audioUrl: "penis", clipName: "chlen", isPlaying: false, timeline: 0 },
+		// { audioUrl: "penis", clipName: "chlen", isPlaying: false, timeline: 0 },
+		// { audioUrl: "penis", clipName: "chlen", isPlaying: false, timeline: 0 },
 	],
 };
 
@@ -36,7 +36,9 @@ const recorderReducer = createReducer(initialState, (builder) => {
 			state.isRecording = false;
 		})
 		.addCase(deleteRecord, (state, action) => {
-			state.records.splice(action.payload, 1);
+			state.records = state.records.filter(
+				(record, index) => index !== action.payload
+			);
 		})
 		.addCase(playRecord, (state, action) => {
 			state.records[action.payload].isPlaying = true;
