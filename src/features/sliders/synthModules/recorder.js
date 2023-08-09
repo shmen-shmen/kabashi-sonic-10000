@@ -29,7 +29,9 @@ export const startRecordingAsync = (streamDst) => async (dispatch) => {
 			);
 			const blob = new Blob(chunks, { type: "audio/ogg; codecs=opus" });
 			const audioUrl = URL.createObjectURL(blob);
-			dispatch(stopRecording({ audioUrl, clipName, isPlaying: false }));
+			dispatch(
+				stopRecording({ audioUrl, clipName, isPlaying: false, timeline: 0 })
+			);
 		} else {
 			dispatch(abortRecording());
 		}
