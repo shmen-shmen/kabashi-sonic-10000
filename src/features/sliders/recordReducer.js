@@ -32,7 +32,7 @@ const recorderReducer = createReducer(initialState, (builder) => {
 			state.isRecording = false;
 			state.records = [...state.records, action.payload];
 		})
-		.addCase(abortRecording, (state, action) => {
+		.addCase(abortRecording, (state) => {
 			state.isRecording = false;
 		})
 		.addCase(deleteRecord, (state, action) => {

@@ -8,7 +8,6 @@ import {
 } from "../actions/actions";
 
 function Record({ record, index }) {
-	console.log(record, index);
 	const dispatch = useDispatch();
 
 	const playPauseHandler = (index) => {
@@ -83,6 +82,11 @@ function Record({ record, index }) {
 					value={timeline}
 					onChange={(e) => changeTimelinePosition(e, index)}
 				></input>
+				<button className="player-btn">
+					<a href={audioUrl} download={clipName}>
+						Download
+					</a>
+				</button>
 				<button
 					onClick={() => {
 						deleteTrackHandler(index);
@@ -90,11 +94,6 @@ function Record({ record, index }) {
 					className="player-btn"
 				>
 					delete
-				</button>
-				<button className="player-btn">
-					<a href={audioUrl} download={clipName}>
-						Download
-					</a>
 				</button>
 			</div>
 		</div>

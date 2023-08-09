@@ -7,7 +7,7 @@ const Recorder = () => {
 
 	return (
 		<div id="recorder">
-			<h2 id="recorder-header">MY TUNES:</h2>
+			<h2 id="recorder-header">my tunes:</h2>
 			<div className="records-list">
 				{records.map((record, index) => {
 					return <Record record={record} index={index} />;
