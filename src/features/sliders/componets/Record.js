@@ -23,7 +23,7 @@ function Record({ record, index }) {
 	};
 
 	const [waitMessage, setWaitMessage] = useState(null);
-	const waitForAudioToLOad = (e) => {
+	const waitForAudioToLOad = () => {
 		setWaitMessage("wait a second, audio is loading...");
 		setTimeout(() => {
 			setWaitMessage(null);

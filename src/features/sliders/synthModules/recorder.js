@@ -4,6 +4,11 @@ import {
 	stopRecording,
 } from "../actions/actions";
 
+import { actx } from "../slidersSlice";
+import { audioBufferToWav } from "../encoder";
+// ***
+// THE EASY WAY
+// ***
 let mediaRecorder;
 
 export const startRecordingAsync = (streamDst) => async (dispatch) => {
@@ -18,6 +23,24 @@ export const startRecordingAsync = (streamDst) => async (dispatch) => {
 		chunks.push(evt.data);
 	};
 
+	// mediaRecorder.onstop = async () => {
+	// 	const dataIsNotEmpty = chunks[0]["size"] !== 0;
+
+	// 	if (dataIsNotEmpty) {
+	// 		const date = new Date();
+	// 		let clipName = prompt(
+	// 			"Enter a name for your tune 🐏",
+	// 			"rec on " + date.toLocaleString()
+	// 		);
+	// 		blob = new Blob(chunks, { type: "audio/ogg; codecs=opus" });
+	// 		const audioUrl = URL.createObjectURL(blob);
+	// 		dispatch(
+	// 			stopRecording({ audioUrl, clipName, isPlaying: false, timeline: 0 })
+	// 		);
+	// 	} else {
+	// 		dispatch(abortRecording());
+	// 	}
+	// };
 	mediaRecorder.onstop = async () => {
 		const dataIsNotEmpty = chunks[0]["size"] !== 0;
 
@@ -28,7 +51,11 @@ export const startRecordingAsync = (streamDst) => async (dispatch) => {
 				"rec on " + date.toLocaleString()
 			);
 			const blob = new Blob(chunks, { type: "audio/ogg; codecs=opus" });
-			const audioUrl = URL.createObjectURL(blob);
+			const arrayBuffer = await blob.arrayBuffer();
+			const audioBuffer = await actx.decodeAudioData(arrayBuffer);
+
+			const audioUrl = audioBufferToWav(audioBuffer);
+
 			dispatch(
 				stopRecording({ audioUrl, clipName, isPlaying: false, timeline: 0 })
 			);

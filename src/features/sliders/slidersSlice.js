@@ -4,6 +4,7 @@ import createEchoDelayEffect from "./synthModules/delay";
 
 //audio context, master gain (gain1), output node are initiated here
 let actx = new AudioContext();
+export { actx };
 let out = actx.destination;
 
 let gain1 = actx.createGain();
@@ -30,7 +31,6 @@ echoDelay.placeBetween(filter, gain1);
 // media stream destination to make recordings
 const streamDst = actx.createMediaStreamDestination();
 gain1.connect(streamDst);
-
 export { streamDst };
 
 const initialState = {
