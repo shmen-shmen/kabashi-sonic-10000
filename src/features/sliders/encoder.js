@@ -1,4 +1,4 @@
-var lamejs = require("lamejs");
+// var lamejs = require("lamejs");
 
 export function audioBufferToWav(aBuffer) {
 	let numOfChan = aBuffer.numberOfChannels,
@@ -39,14 +39,25 @@ export function audioBufferToWav(aBuffer) {
 		btwOffset++; // next source sample
 	}
 
-	let wavHdr = lamejs.WavHeader.readHeader(new DataView(btwArrBuff));
-	let wavSamples = new Int16Array(
-		btwArrBuff,
-		wavHdr.dataOffset,
-		wavHdr.dataLen / 2
-	);
+	const wavBlob = new Blob([btwArrBuff], { type: "audio/wav" });
+	return window.URL.createObjectURL(wavBlob);
 
-	return wavToMp3(wavHdr.channels, wavHdr.sampleRate, wavSamples);
+	// ***
+	// CODE IF WE WANT TO CONVERT TO MP3
+	// ***
+	// let wavHdr = lamejs.WavHeader.readHeader(new DataView(btwArrBuff));
+	// let wavSamples = new Int16Array(
+	// 	btwArrBuff,
+	// 	wavHdr.dataOffset,
+	// 	wavHdr.dataLen / 2
+	// );
+	// GIVES ERROR IF 2 CHANNELS
+	// return wavToMp3(wavHdr.channels, wavHdr.sampleRate, wavSamples);
+	// A HACK INSTEAD OF COVERTIG TO STEREO MP3
+	// return wavToMp3(1, wavHdr.sampleRate * 2, wavSamples);
+	// ***
+	// CODE IF WE WANT TO CONVERT TO MP3
+	// ***
 
 	function setUint16(data) {
 		btwView.setUint16(btwPos, data, true);
@@ -59,29 +70,32 @@ export function audioBufferToWav(aBuffer) {
 	}
 }
 
-export function wavToMp3(channels, sampleRate, samples) {
-	var buffer = [];
-	var mp3enc = new lamejs.Mp3Encoder(channels, sampleRate, 128);
-	var remaining = samples.length;
-	var samplesPerFrame = 1152;
-	for (var i = 0; remaining >= samplesPerFrame; i += samplesPerFrame) {
-		var mono = samples.subarray(i, i + samplesPerFrame);
-		var mp3buf = mp3enc.encodeBuffer(mono);
-		if (mp3buf.length > 0) {
-			buffer.push(new Int8Array(mp3buf));
-		}
-		remaining -= samplesPerFrame;
-	}
-	var d = mp3enc.flush();
-	if (d.length > 0) {
-		buffer.push(new Int8Array(d));
-	}
+// ***
+// CODE IF WE WANT TO CONVERT TO MP3
+// ***
+//  function wavToMp3(channels, sampleRate, samples) {
+// 	var buffer = [];
+// 	var mp3enc = new lamejs.Mp3Encoder(channels, sampleRate, 128);
+// 	var remaining = samples.length;
+// 	var samplesPerFrame = 1152;
+// 	for (var i = 0; remaining >= samplesPerFrame; i += samplesPerFrame) {
+// 		var mono = samples.subarray(i, i + samplesPerFrame);
+// 		var mp3buf = mp3enc.encodeBuffer(mono);
+// 		if (mp3buf.length > 0) {
+// 			buffer.push(new Int8Array(mp3buf));
+// 		}
+// 		remaining -= samplesPerFrame;
+// 	}
+// 	var d = mp3enc.flush();
+// 	if (d.length > 0) {
+// 		buffer.push(new Int8Array(d));
+// 	}
 
-	var mp3Blob = new Blob(buffer, { type: "audio/mp3" });
-	var bUrl = window.URL.createObjectURL(mp3Blob);
+// 	var mp3Blob = new Blob(buffer, { type: "audio/mp3" });
+// 	var bUrl = window.URL.createObjectURL(mp3Blob);
 
-	// send the download link to the console
-	console.log("mp3 download:", bUrl);
+// 	// send the download link to the console
+// 	console.log("mp3 download:", bUrl);
 
-	return bUrl;
-}
+// 	return bUrl;
+// }
