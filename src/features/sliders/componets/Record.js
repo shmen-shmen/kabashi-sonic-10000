@@ -73,7 +73,7 @@ function Record({ record, index }) {
 	const { audioUrl, clipName, isPlaying, timeline } = record;
 
 	return (
-		<div className="record" key={`record-${index}-key`}>
+		<section className="record" key={`record-${index}-key`}>
 			<p id={`clip-name-audio${index}`}>{waitMessage || clipName}</p>
 			<div className="audio-player">
 				<audio
@@ -115,7 +115,7 @@ function Record({ record, index }) {
 					delete
 				</button>
 			</div>
-		</div>
+		</section>
 	);
 }
 

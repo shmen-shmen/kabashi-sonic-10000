@@ -19,11 +19,11 @@ export default function Filter() {
 	};
 
 	return (
-		<div className="controls">
+		<article className="controls">
 			<h2>{"Filter"}</h2>
 			<div className="control-el">
-				<label htmlFor="type">type:</label>
-				<select name="type" id="type" onChange={filterHandler}>
+				<label htmlFor="filter-type">type:</label>
+				<select name="filter-type" id="filter-type" onChange={filterHandler}>
 					{types.map((type) => {
 						return (
 							<option value={type} key={type + "-filter"}>
@@ -89,6 +89,6 @@ export default function Filter() {
 					onDoubleClick={resetHandler}
 				/>
 			</div>
-		</div>
+		</article>
 	);
 }

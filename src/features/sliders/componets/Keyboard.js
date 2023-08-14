@@ -2,7 +2,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import QwertyHancock from "qwerty-hancock";
 import { makeOsc, killOsc, show } from "../slidersSlice";
-import OctaveUpDown from "./octaveUpDown";
+import KeyboardControls from "./keyboardControls";
 
 const Keyboard = () => {
 	const dispatch = useDispatch();
@@ -30,9 +30,9 @@ const Keyboard = () => {
 	}, [octave]);
 
 	return (
-		<div id="keyboard">
-			<OctaveUpDown />
-		</div>
+		<article id="keyboard">
+			<KeyboardControls />
+		</article>
 	);
 };
 

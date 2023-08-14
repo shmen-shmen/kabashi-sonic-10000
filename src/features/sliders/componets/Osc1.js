@@ -43,11 +43,11 @@ export default function Osc1() {
 	};
 
 	return (
-		<div className="controls" id="osc-conrols">
+		<article className="controls" id="osc-conrols">
 			<h2>Oscillator</h2>
 			<div className="control-el">
-				<label htmlFor="type">type:</label>
-				<select name="type" id="type" onChange={osc1Handler}>
+				<label htmlFor="waveform-type">type:</label>
+				<select name="waveform-type" id="waveform-type" onChange={osc1Handler}>
 					{types.map((type) => {
 						return (
 							<option value={type} key={type + "-osc"}>
@@ -104,6 +104,6 @@ export default function Osc1() {
 					onDoubleClick={resetHandler}
 				/>
 			</div>
-		</div>
+		</article>
 	);
 }

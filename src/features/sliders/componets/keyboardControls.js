@@ -7,7 +7,7 @@ import {
 } from "../synthModules/recorder";
 import { streamDst } from "../slidersSlice";
 
-const OctaveUpDown = () => {
+const KeyboardControls = () => {
 	const dispatch = useDispatch();
 
 	useEffect(() => {
@@ -60,7 +60,7 @@ const OctaveUpDown = () => {
 	};
 
 	return (
-		<div className="keyboard-controls">
+		<section className="keyboard-controls">
 			<div className={`octave-control`}>
 				<button
 					id="octave-up"
@@ -88,8 +88,8 @@ const OctaveUpDown = () => {
 			>
 				REC
 			</button>
-		</div>
+		</section>
 	);
 };
 
-export default OctaveUpDown;
+export default KeyboardControls;

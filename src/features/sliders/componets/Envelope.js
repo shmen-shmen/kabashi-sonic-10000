@@ -18,7 +18,7 @@ export default function Envelope() {
 	};
 
 	return (
-		<div className="controls">
+		<article className="controls">
 			<h2>Envelope</h2>
 			<div className="control-el">
 				<label htmlFor="attack">{"attack: " + attack}</label>
@@ -85,6 +85,6 @@ export default function Envelope() {
 					onDoubleClick={envelopeResetHandler}
 				/>
 			</div>
-		</div>
+		</article>
 	);
 }

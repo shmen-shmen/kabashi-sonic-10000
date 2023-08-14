@@ -23,7 +23,7 @@ export default function Delay() {
 	}, [canSee]);
 
 	return (
-		<div className="controls">
+		<article className="controls">
 			<h2>Echo Delay</h2>
 			<div className="control-el">
 				<label htmlFor="dryWet">{" gain: " + dryWet}</label>
@@ -64,6 +64,6 @@ export default function Delay() {
 					delay
 				</button>
 			</div> */}
-		</div>
+		</article>
 	);
 }

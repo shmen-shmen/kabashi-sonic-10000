@@ -9,20 +9,22 @@ import Recorder from "./features/sliders/componets/Recorder";
 
 function App() {
 	return (
-		<div className="App" id="app">
+		<main className="App" id="app">
 			<div className="synth">
 				<Dialog />
-				<h1>kabashi sonic 10000</h1>
-				<div className="modules">
+				<header id="header">
+					<h1>kabashi sonic 10000</h1>
+				</header>
+				<section className="modules">
 					<Osc1></Osc1>
 					<Envelope></Envelope>
 					<Filter></Filter>
 					<Delay></Delay>
-				</div>
+				</section>
 				<Keyboard></Keyboard>
 				<Recorder></Recorder>
 			</div>
-		</div>
+		</main>
 	);
 }
 
