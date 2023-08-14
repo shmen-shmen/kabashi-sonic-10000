@@ -21,35 +21,37 @@ function ShareDialog() {
 						resetButtonStyle={false}
 						children={"email"}
 						url="https://shmen-shmen.github.io/kabashi-sonic-10000/"
-						subject="the DEVICE that uses ELECTRONICS ⚛ in order to make sound 📀???🤯"
+						subject={`New device by KABASHI TECHNOLOGIES uses electronics to make SOUND`}
 					/>
 					<TwitterShareButton
 						resetButtonStyle={false}
 						children={"twitter"}
 						url="https://shmen-shmen.github.io/kabashi-sonic-10000/"
+						title={`New device by KABASHI TECHNOLOGIES uses electronics to make SOUND `}
 					/>
 					<LinkedinShareButton
 						resetButtonStyle={false}
 						children={"linkedIn"}
 						url="https://shmen-shmen.github.io/kabashi-sonic-10000/"
-						summary="the DEVICE that uses ELECTRONICS📀 in order to make sound ???🤯"
+						summary={`New device by KABASHI TECHNOLOGIES uses electronics to make SOUND`}
 					/>
 					<TelegramShareButton
 						resetButtonStyle={false}
 						children={"telegram"}
 						url="https://shmen-shmen.github.io/kabashi-sonic-10000/"
-						title="New device by KABASHI CORPORATION uses electronics to make SOUND"
+						title={`New device by KABASHI TECHNOLOGIES uses electronics to make SOUND`}
 					/>
 					<RedditShareButton
 						resetButtonStyle={false}
 						children={"reddit"}
 						url="https://shmen-shmen.github.io/kabashi-sonic-10000/"
+						title={`New device by KABASHI TECHNOLOGIES uses electronics to make SOUND`}
 					/>
 					<FacebookShareButton
 						resetButtonStyle={false}
 						children={"facebook"}
 						url="https://shmen-shmen.github.io/kabashi-sonic-10000/"
-						quote="the DEVICE that uses ELECTRONICS ⚛ in order to make sound 📀???🤯"
+						quote={`New device by KABASHI TECHNOLOGIES uses electronics to make SOUND`}
 					/>
 				</form>
 			</div>
