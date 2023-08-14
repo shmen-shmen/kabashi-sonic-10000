@@ -5,7 +5,7 @@ import {
 } from "../actions/actions";
 
 import { actx } from "../slidersSlice";
-import { audioBufferToWav } from "../encoder";
+import { audioBufferToWav } from "./encoder";
 
 let mediaRecorder;
 
