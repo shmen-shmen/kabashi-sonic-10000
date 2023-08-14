@@ -1,9 +1,9 @@
 import React from "react";
 
-function Dialog() {
+function RotateDialog() {
 	return (
-		<dialog open id="rotateDeviceDialog">
-			<div className="dialog-contents">
+		<dialog id="rotate-dialog" open>
+			<div className="dialog-contents rotate-dialog">
 				<p>
 					Dear User, would you kindly rotate 🤸‍♀️ your phone so that everything
 					fits
@@ -16,4 +16,4 @@ function Dialog() {
 	);
 }
 
-export default Dialog;
+export default RotateDialog;

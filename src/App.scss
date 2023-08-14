@@ -62,29 +62,52 @@
 	// ***
 	// dialog that prompts user to rotate screen if on mobile
 	// ***
-	#rotateDeviceDialog {
-		@include for-tablet-portrait-up {
-			display: none;
-			@media screen and (orientation: landscape) {
-				display: none;
-			}
-		}
-
+	dialog {
 		position: fixed;
-		z-index: 2;
 		top: 0;
-		height: 100%;
-		width: 100%;
+		z-index: 2;
+		min-width: 100vw;
+		min-height: 100vh;
 
 		background-color: transparent;
 		backdrop-filter: grayscale(100%) blur(4px);
 		border: none;
 
+		&#rotate-dialog {
+			@include for-tablet-portrait-up {
+				display: none;
+				@media screen and (orientation: landscape) {
+					display: none;
+				}
+			}
+		}
+
+		&#share-dialog {
+			p {
+				width: fit-content;
+				text-transform: uppercase;
+				margin: 0 auto;
+				padding: 0;
+			}
+			form {
+				display: flex;
+				flex-direction: column;
+				margin: 0 auto;
+				width: fit-content;
+			}
+			button {
+				display: inline;
+				width: fit-content;
+				padding: 0;
+				color: rgb(148, 230, 255);
+			}
+		}
+
 		.dialog-contents {
 			max-width: 600px;
-			height: 100%;
 			margin: 0 auto;
 			font-size: 1.5rem;
+			min-height: 100vh;
 			display: flex;
 			flex-direction: column;
 			justify-content: center;
@@ -109,14 +132,13 @@
 			font-size: 1.5rem;
 			margin-top: 1rem;
 
-			&:active {
-				color: red;
-			}
-
 			@media (hover: hover) {
 				&:hover {
-					color: red;
+					background: linear-gradient(rgb(250, 0, 0), black);
 				}
+			}
+			&:active {
+				background: linear-gradient(red, black);
 			}
 		}
 	}
@@ -126,13 +148,38 @@
 		max-width: 600px;
 		margin: 0 auto;
 
-		h1 {
+		header {
 			background: linear-gradient(rgb(0, 50, 124), black);
 			text-transform: uppercase;
-			font-size: 2rem;
 			width: 100%;
 			margin-bottom: 1rem;
-			padding: 0 0.5rem 0 0.5rem;
+			display: flex;
+			justify-content: space-between;
+			flex-direction: column;
+			align-items: baseline;
+			h1 {
+				font-size: 2rem;
+				margin-left: 0.5rem;
+			}
+			button {
+				border: none;
+				background-color: transparent;
+				background: linear-gradient(rgb(0, 50, 124), black);
+				color: rgb(148, 230, 255);
+				padding: 0 0.5rem 0 0.5rem;
+				font-size: 1.2rem;
+				font-weight: 900;
+				align-self: last baseline;
+
+				@media (hover: hover) {
+					&:hover {
+						background: linear-gradient(rgb(250, 0, 0), transparent);
+					}
+				}
+				&:active {
+					background: linear-gradient(red, transparent);
+				}
+			}
 		}
 
 		// ***
