@@ -21,6 +21,7 @@ function ShareDialog() {
 						resetButtonStyle={false}
 						children={"email"}
 						url="https://shmen-shmen.github.io/kabashi-sonic-10000/"
+						subject="the DEVICE that uses ELECTRONICS ⚛ in order to make sound 📀???🤯"
 					/>
 					<TwitterShareButton
 						resetButtonStyle={false}
@@ -31,11 +32,13 @@ function ShareDialog() {
 						resetButtonStyle={false}
 						children={"linkedIn"}
 						url="https://shmen-shmen.github.io/kabashi-sonic-10000/"
+						summary="the DEVICE that uses ELECTRONICS📀 in order to make sound ???🤯"
 					/>
 					<TelegramShareButton
 						resetButtonStyle={false}
 						children={"telegram"}
 						url="https://shmen-shmen.github.io/kabashi-sonic-10000/"
+						title="New device by KABASHI CORPORATION uses electronics to make SOUND"
 					/>
 					<RedditShareButton
 						resetButtonStyle={false}
@@ -46,6 +49,7 @@ function ShareDialog() {
 						resetButtonStyle={false}
 						children={"facebook"}
 						url="https://shmen-shmen.github.io/kabashi-sonic-10000/"
+						quote="the DEVICE that uses ELECTRONICS ⚛ in order to make sound 📀???🤯"
 					/>
 				</form>
 			</div>
