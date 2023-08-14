@@ -45,8 +45,8 @@ const initialState = {
 	masterGain: gain1.gain.value.toFixed(1),
 
 	envelope: {
-		attack: 0.01,
-		peak: 0.9,
+		attack: 0.1,
+		peak: 0.4,
 		decay: 0.1,
 		sustain: 0.6,
 		release: 0.1,

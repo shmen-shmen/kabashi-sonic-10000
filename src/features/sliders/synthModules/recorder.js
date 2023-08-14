@@ -22,27 +22,32 @@ export const startRecordingAsync = (streamDst) => async (dispatch) => {
 	};
 
 	mediaRecorder.onstop = async () => {
-		const dataIsNotEmpty = chunks[0]["size"] !== 0;
-
-		if (dataIsNotEmpty) {
-			const date = new Date();
-			let clipName = prompt(
-				"Enter a name for your tune 🐏",
-				"rec on " + date.toLocaleString()
-			);
-			const blob = new Blob(chunks, { type: "audio/ogg; codecs=opus" });
-
-			const arrayBuffer = await blob.arrayBuffer();
-			const audioBuffer = await actx.decodeAudioData(arrayBuffer);
-
-			const audioUrl = audioBufferToWav(audioBuffer);
-
-			dispatch(
-				stopRecording({ audioUrl, clipName, isPlaying: false, timeline: 0 })
-			);
-		} else {
+		const dataIsEmpty = chunks[0]["size"] == 0;
+		if (dataIsEmpty) {
 			dispatch(abortRecording());
+			return;
 		}
+
+		const date = new Date();
+		let clipName = prompt(
+			"Enter a name for your tune 🐏",
+			"rec on " + date.toLocaleString()
+		);
+
+		if (clipName === null) {
+			dispatch(abortRecording());
+			return;
+		}
+
+		const blob = new Blob(chunks, { type: "audio/ogg; codecs=opus" });
+
+		const arrayBuffer = await blob.arrayBuffer();
+		const audioBuffer = await actx.decodeAudioData(arrayBuffer);
+		const audioUrl = audioBufferToWav(audioBuffer);
+
+		dispatch(
+			stopRecording({ audioUrl, clipName, isPlaying: false, timeline: 0 })
+		);
 	};
 };
 
