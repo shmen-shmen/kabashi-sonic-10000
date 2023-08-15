@@ -12,14 +12,7 @@ import {
 
 const initialState = {
 	isRecording: false,
-	records: [
-		// { audioUrl: "penis", clipName: "chlen", isPlaying: false, timeline: 0 },
-		// { audioUrl: "penis", clipName: "chlen", isPlaying: false, timeline: 0 },
-		// { audioUrl: "penis", clipName: "chlen", isPlaying: false, timeline: 0 },
-		// { audioUrl: "penis", clipName: "chlen", isPlaying: false, timeline: 0 },
-		// { audioUrl: "penis", clipName: "chlen", isPlaying: false, timeline: 0 },
-		// { audioUrl: "penis", clipName: "chlen", isPlaying: false, timeline: 0 },
-	],
+	records: [],
 };
 
 //separate reducer to handle asynchronous stuff

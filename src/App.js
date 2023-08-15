@@ -1,6 +1,7 @@
 import "./App.scss";
 import RotateDialog from "./features/sliders/componets/RotateDialog";
 import ShareDialog from "./features/sliders/componets/ShareDialog";
+import AboutDialog from "./features/sliders/componets/AboutDialog";
 import SynthHeader from "./features/sliders/componets/synthHeader";
 import Osc1 from "./features/sliders/componets/Osc1";
 import Filter from "./features/sliders/componets/Filter";
@@ -15,6 +16,7 @@ function App() {
 			<div className="synth">
 				<RotateDialog />
 				<ShareDialog />
+				<AboutDialog />
 				<SynthHeader></SynthHeader>
 				<section className="modules">
 					<Osc1></Osc1>

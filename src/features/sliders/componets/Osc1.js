@@ -18,7 +18,10 @@ export default function Osc1() {
 	const dispatch = useDispatch();
 
 	const osc1Handler = (e) => {
-		const { id, value } = e.target;
+		let { id, value } = e.target;
+		if (id === "waveform-type") {
+			id = "type";
+		}
 		dispatch(changeOsc1({ id, value }));
 	};
 

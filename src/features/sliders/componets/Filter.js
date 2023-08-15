@@ -9,7 +9,10 @@ export default function Filter() {
 	const dispatch = useDispatch();
 
 	const filterHandler = (e) => {
-		const { id, value } = e.target;
+		let { id, value } = e.target;
+		if (id === "filter-type") {
+			id = "type";
+		}
 		dispatch(changeFilter({ id, value }));
 	};
 
