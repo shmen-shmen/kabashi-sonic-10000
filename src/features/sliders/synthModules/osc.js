@@ -33,6 +33,7 @@ export default class Osc {
 		this.start();
 	}
 	start() {
+		console.log("start");
 		let { currentTime } = this.actx;
 		// otherwise all sorts of weird gain behaviour on each key press (and release)
 		this.gateGain.gain.cancelScheduledValues(currentTime);
@@ -49,9 +50,12 @@ export default class Osc {
 	}
 
 	stop() {
+		console.log("stop");
 		let { currentTime } = this.actx;
+		console.log(this.gateGain.gain.value);
 		this.gateGain.gain.cancelScheduledValues(currentTime);
 		// as soon as the button is released, gain drops to 0 in release time
+		this.gateGain.gain.value = this.gateGain.gain.value;
 		this.gateGain.gain.setTargetAtTime(
 			0,
 			currentTime,
