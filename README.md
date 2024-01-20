@@ -6,7 +6,7 @@ Pull all the sliders and all the toggles and menus it will figure itself out and
 
 When you like what you hear – press REC button and save your tune for personal enjoyment and sharing purposes.
 
-Sometimes a guest pays you a visit.
+At some point a guest will pay you a visit.
 
 Enjoy!
 
