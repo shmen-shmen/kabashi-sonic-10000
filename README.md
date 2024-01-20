@@ -1,9 +1,10 @@
 # KABASHI SONIC 10000
 
-A simple synth made with Web Audio API. Press keys like that: AWSEDRF... to make sounds. You can also use sliders to add effects and record your tunes to listen to them later. Sometimes a guest pays you a visit.
-
-App based on a [tutorial](https://www.youtube.com/playlist?list=PLQ1Pnjr9zvi4x9sofuSjF6fcjjRT222In) by [Thomas Foydel](https://github.com/thomasfoydel).
+This is a synthesizer. Press keys like that: AWSEDRF to make sounds. 
+Pull all the sliders and all the toggles and menus it will figure itself out and start to sound cool eventually. That's how all the synths work
+When you like what you hear – press REC button and save your tune for personal enjoyment and sharing purposes.
+Sometimes a guest pays you a visit.
 
 Enjoy!
 
--shmen
+-Anton
