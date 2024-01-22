@@ -1,6 +1,6 @@
 # KABASHI SONIC 10000
 
-This is a synthesizer. Press keys like that: AWSEDRF to make sounds. 
+This is a synthesizer. Press keys like that: AWSEDRF to make sounds or tap screen keyboard if you are on your phone.
 
 Pull all the sliders and all the toggles and menus it will figure itself out and start to sound cool eventually. That's how all synths work.
 
